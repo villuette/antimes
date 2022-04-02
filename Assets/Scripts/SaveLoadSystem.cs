@@ -34,9 +34,21 @@ public class SaveLoadSystem : MonoBehaviour
         Stats.GG_SUP_DMG = PlayerPrefs.GetFloat("GG_SUP_DMG_SAVE");
         Stats.GG_SUP_Manacost = PlayerPrefs.GetInt("GG_SUP_Manacost_SAVE");
     }
-    void DelteSave()
+    public void DeleteSave()
     {
-        PlayerPrefs.DeleteKey("SAVE");
+        PlayerPrefs.DeleteAll();
+        Stats.GG_Experience = 0;
+        Stats.GG_Gold = 0;
+        Stats.GG_Health = 300;
+        Stats.GG_MaxHealth = 300;
+        Stats.GG_Mana = 0;
+        Stats.GG_MaxMana = 0;
+        Stats.GG_Damage = 6;
+        Stats.GG_Armor = 0.0f;
+        Stats.GG_CRT_CHN = 0.1f;
+        Stats.GG_CRT_DMG = 1.0f;
+        Stats.GG_SUP_DMG = 0.0f;
+        Stats.GG_SUP_Manacost = 1;
+        Stats.Enemy_Damage = 30;
     }
-    
 }
