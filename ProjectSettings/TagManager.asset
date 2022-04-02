@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - ladder
+  - Enemy
   - ground
   - wchest
   - gchest
@@ -17,8 +18,17 @@ TagManager:
   - UI
   - platform
   - gg
-  - ladder
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
   - 
+  - Water
+  - UI
+  - platform
+  - gg
+  - enemy
+  - ladder
   - grass
   - 
   - 
