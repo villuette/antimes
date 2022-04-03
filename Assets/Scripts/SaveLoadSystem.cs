@@ -50,5 +50,6 @@ public class SaveLoadSystem : MonoBehaviour
         Stats.GG_SUP_DMG = 0.0f;
         Stats.GG_SUP_Manacost = 1;
         Stats.Enemy_Damage = 30;
+        SaveGame();
     }
 }

@@ -7,17 +7,20 @@ public class SceneSwap : MonoBehaviour
 {
     public void Load_level1()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(2);
+        
     }
     public void Load_Town()
     {
         SceneManager.LoadScene(1);
         Stats.GG_Gold += Stats.GG_UGold;
         Stats.GG_UGold = 0;
+        Stats.GG_Health = Stats.GG_MaxHealth;
     }
     public void Load_Menu()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(0);
+
     }
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -25,5 +28,9 @@ public class SceneSwap : MonoBehaviour
         {
             Load_level1();
         }
+    }
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
