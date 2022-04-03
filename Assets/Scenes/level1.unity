@@ -256,6 +256,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 54941630}
   m_CullTransparentMesh: 1
+--- !u!1 &57493653 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 12595071966226460, guid: 702c277b3b2b4e54988fd9cd2f65665e, type: 3}
+  m_PrefabInstance: {fileID: 1828324673}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &127382422
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,7 +515,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &713003058
 BoxCollider2D:
@@ -1239,7 +1244,7 @@ MonoBehaviour:
   leftCornerEarth: {fileID: 1983523459}
   rightCornerEarth: {fileID: 1717759423}
   ladder: {fileID: 919005367}
-  enemy: {fileID: 1930416954}
+  enemy: {fileID: 57493653}
   chest: {fileID: 1726791281}
   platCollider: {fileID: 0}
   deltaY: 1.44
@@ -1256,7 +1261,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1321954659
 GameObject:
@@ -1322,7 +1327,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1455450424
 GameObject:
@@ -1423,7 +1428,6 @@ MonoBehaviour:
   BaseGGy: 0
   BGh: 0
   CAMh: 0
-  t: 0
   speed: 5
   Nmax: 20
   tvy: 0
@@ -1591,7 +1595,7 @@ Transform:
   - {fileID: 1150457452}
   - {fileID: 1776727435}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1708464211
 MonoBehaviour:
@@ -1700,7 +1704,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1726791281
 GameObject:
@@ -1782,7 +1786,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1776727434 stripped
 GameObject:
@@ -2034,7 +2038,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &12595071814205480
 PrefabInstance:
