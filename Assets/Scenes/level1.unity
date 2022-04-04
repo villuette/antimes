@@ -712,6 +712,14 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1673619081, guid: c3eefcf10a0fc3c499675f2ade02e549, type: 3}
+      propertyPath: maxMoneyEarned
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1673619081, guid: c3eefcf10a0fc3c499675f2ade02e549, type: 3}
+      propertyPath: minMoneyEarned
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6992222391308666608, guid: c3eefcf10a0fc3c499675f2ade02e549, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1273,7 +1281,7 @@ MonoBehaviour:
   leftCornerEarth: {fileID: 1983523459}
   rightCornerEarth: {fileID: 1717759423}
   ladder: {fileID: 919005367}
-  enemy: {fileID: 0}
+  enemy: {fileID: 1947659729}
   chest: {fileID: 1726791281}
   platCollider: {fileID: 0}
   deltaY: 1.44
