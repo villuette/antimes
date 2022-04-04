@@ -1254,8 +1254,9 @@ MonoBehaviour:
   leftCornerEarth: {fileID: 1983523459}
   rightCornerEarth: {fileID: 1717759423}
   ladder: {fileID: 919005367}
-  platLength: 0
-  col: {fileID: 0}
+  enemy: {fileID: 1930416954}
+  chest: {fileID: 1726791281}
+  platCollider: {fileID: 0}
   deltaY: 1.44
   platformQuantity: 5
 --- !u!4 &1245411022

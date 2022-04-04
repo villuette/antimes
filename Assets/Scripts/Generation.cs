@@ -14,7 +14,9 @@ public class Generation : MonoBehaviour
     public float deltaY;
     public int platformQuantity;
 
-    float previousPlatY, previousLadderY, previousPlatX, previousPlatHalf;
+    float enemyPos_1 = -1000.0f, enemyPos_2 = -1000.0f, chestPos = -1000.0f, goldenChestPos = -1000.0f;
+
+    float previousPlatY, previousLadderY, previousPlatX, previousPlatHalf, previousLadderX;
 
     float previousPlatX_lower, previousPlatHalf_lower, previousPlatY_lower;
     float previousPlatX_upper, previousPlatHalf_upper, previousPlatY_upper;
@@ -77,14 +79,18 @@ public class Generation : MonoBehaviour
             ladderProps = ladderClone.gameObject.GetComponent<SpriteRenderer>();
             ladderProps.size = new Vector2(ladderProps.size.x, deltaY);
 
-            float platLength = UnityEngine.Random.Range(5, 40) * 0.32f;
+            float platLength = UnityEngine.Random.Range(9, 40) * 0.32f;
             earthProps = platClone.gameObject.GetComponent<SpriteRenderer>();
             earthProps.size = new Vector2(platLength, earthProps.size.y);
 
             platCollider = platClone.gameObject.GetComponent<BoxCollider2D>();
             platCollider.size = new Vector2(earthProps.size.x + 0.61f, platCollider.size.y); ;
+ 
+            float pPos = UnityEngine.Random.Range(previousPlatX - platLength / 2.0f + 0.28f, previousPlatX + platLength / 2.0f - 0.28f) * 100;
+            int pPosInt = (int)pPos - (int)pPos % 32;
+            pPos = (float)pPosInt / 100.0f;
 
-            platClone.transform.position = new Vector2(UnityEngine.Random.Range(previousPlatX - platLength / 2.0f + 0.28f, previousPlatX + platLength / 2.0f - 0.28f), previousPlatY + deltaY);
+            platClone.transform.position = new Vector2(pPos, previousPlatY + deltaY);
             leftCornerClone.transform.position = new Vector3(platClone.transform.position.x - (platLength / 2.0f) - 0.16f, previousPlatY + deltaY);
             rightCornerClone.transform.position = new Vector3(platClone.transform.position.x + (platLength / 2.0f) + 0.16f, previousPlatY + deltaY);
 
@@ -127,21 +133,54 @@ public class Generation : MonoBehaviour
                     lastPoint = platPosition + platLength / 2.0f;
                 }
             }
-            float ladderPos = UnityEngine.Random.Range(firstPoint, lastPoint) * 100;
-            int ladderPosInt = (int)ladderPos - (int)ladderPos % 32;
-            ladderPos = (float)ladderPosInt / 100.0f;
-            ladderClone.transform.position = new Vector2(ladderPos, (previousPlatY + platClone.transform.position.y) / 2.0f + earthProps.size.y / 2.0f);
+            //float ladderPos = UnityEngine.Random.Range(firstPoint, lastPoint) * 100;
+            //int ladderPosInt = (int)ladderPos - (int)ladderPos % 32;
+            //ladderPos = (float)ladderPosInt / 100.0f;
+            //ladderClone.transform.position = new Vector2(ladderPos, (previousPlatY + platClone.transform.position.y) / 2.0f + earthProps.size.y / 2.0f);
 
             int k = 0;
             bool[] isFree = new bool[(int)(Math.Ceiling(platLength / 0.32f)) + 1];
             float[] poss = new float[(int)(Math.Ceiling(platLength / 0.32f)) + 1];
           
-            for (float j = platPosition - platLength / 2.0f; j < platPosition + platLength / 2.0f; j += 0.32f, k++)
+
+            for (float j = platPosition - platLength / 2.0f; j - (platPosition + platLength / 2.0f) < 0.001f; j += 0.320001f, k++)
             {
                 poss[k] = j;
-                if (Math.Abs(ladderClone.transform.position.x - j) < 0.01)
+                //if (Math.Abs(ladderClone.transform.position.x - j) < 0.01f)
+                //{
+                //    isFree[k] = false;
+                //    if (k > 0)
+                //    {
+                //        isFree[k - 1] = false;
+                //    }
+                //    if (k < (int)(Math.Ceiling(platLength / 0.32f)) + 1)
+                //    {
+                //        isFree[k + 1] = false;
+                //    }
+                //}
+                if (Math.Abs(previousLadderX - j) < 0.001f)
                 {
                     isFree[k] = false;
+                    if (k > 0)
+                    {
+                        isFree[k - 1] = false;
+                    }
+                    if (k < (int)(Math.Ceiling(platLength / 0.32f)) + 1)
+                    {
+                        isFree[k + 1] = false;
+                    }
+                }
+                else if (Math.Abs(enemyPos_1 - j) < 0.001f || Math.Abs(enemyPos_2 - j) < 0.001f || Math.Abs(chestPos - j) < 0.001f || Math.Abs(goldenChestPos - j) < 0.001f)
+                {
+                    isFree[k] = false;
+                    if (k > 0)
+                    {
+                        isFree[k - 1] = false;
+                    }
+                    if (k < (int)(Math.Ceiling(platLength / 0.32f)) + 1)
+                    {
+                        isFree[k + 1] = false;
+                    }
                 }
                 else
                 {
@@ -149,22 +188,58 @@ public class Generation : MonoBehaviour
                 }
             }
 
-            bool firstPropGenerated = false;
+           
 
-            generateUsingOdds(enemy, platClone, ref firstPropGenerated, 0.5f, ref isFree, poss, platLength);
-            if (firstPropGenerated == true && platLength > 9 * 0.32f)
+
+            //ladderPos = UnityEngine.Random.Range(firstPoint, lastPoint) * 100;
+            //int ladderPosInt = (int)ladderPos - (int)ladderPos % 32;
+            //ladderPos = (float)ladderPosInt / 100.0f;
+            //ladderClone.transform.position = new Vector2(ladderPos, (previousPlatY + platClone.transform.position.y) / 2.0f + earthProps.size.y / 2.0f);
+
+          
+            while (true)
             {
-                generateUsingOdds(enemy, platClone, ref firstPropGenerated, 0.9f, ref isFree, poss, platLength);
+                int h = UnityEngine.Random.Range(0, (int)(Math.Ceiling(platLength / 0.32f)) + 1);
+                if (isFree[h] && poss[h] > firstPoint && poss[h] < lastPoint)
+                {
+                    ladderClone.transform.position = new Vector2(poss[h], (previousPlatY + platClone.transform.position.y) / 2.0f + earthProps.size.y / 2.0f); 
+                    isFree[h] = false;
+                    break;
+                }
             }
 
-            generateUsingOdds(chest, platClone, ref firstPropGenerated, 0.97f, ref isFree, poss, platLength);
- 
+            bool propGenerated = false;
+
+           
+
+            generateUsingOdds(enemy, platClone, ref propGenerated, 0.5f, ref isFree, poss, platLength, ref enemyPos_1);
+            if (propGenerated && platLength > 9 * 0.32f)
+            {
+                generateUsingOdds(enemy, platClone, ref propGenerated, 0.9f, ref isFree, poss, platLength, ref enemyPos_2);
+                if (!propGenerated)
+                {
+                    enemyPos_2 = -1000.0f;
+                }
+            }
+            else if (!propGenerated)
+            {
+                enemyPos_1 = -1000.0f;
+            }
+            generateUsingOdds(chest, platClone, ref propGenerated, 0.97f, ref isFree, poss, platLength, ref chestPos);
+            if (!propGenerated)
+            {
+                chestPos = -1000.0f;
+            }
+
+
+            previousLadderX = ladderClone.transform.position.x;  
+
             previousPlatX = platPosition;
             previousPlatHalf = platLength / 2.0f;
             previousPlatY = platClone.transform.position.y;
 
             if (i == platformQuantity)
-            {
+            { 
                 destX = platPosition;
                 destHalf = platLength / 2.0f;
                 destY = platClone.transform.position.y;
@@ -172,7 +247,7 @@ public class Generation : MonoBehaviour
         }
     }
 
-    void generateUsingOdds(GameObject obj, GameObject earth, ref bool success, float odds, ref bool[] CheckIsFree, float[] positions, float platLength)
+    void generateUsingOdds(GameObject obj, GameObject earth, ref bool success, float odds, ref bool[] CheckIsFree, float[] positions, float platLength, ref float propPose)
     {
         if (UnityEngine.Random.Range(0f, 1f) > odds)
         {
@@ -186,17 +261,19 @@ public class Generation : MonoBehaviour
                     CheckIsFree[thePropPos] = false;
                     if (thePropPos < (int)(Math.Ceiling(platLength / 0.32f)) + 1)
                     {
-                        CheckIsFree[thePropPos++] = false;
+                        CheckIsFree[thePropPos + 1] = false;
                     }
                     if (thePropPos > 0)
                     {
-                        CheckIsFree[thePropPos--] = false;
+                        CheckIsFree[thePropPos - 1] = false;
                     }
                     success = true;
+                    propPose = propClone.transform.position.x;
                     break;
                 }
             }
         }
+        else success = false;
     }
     
 }
