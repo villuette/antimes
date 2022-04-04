@@ -1,25 +1,19 @@
 fileFormatVersion: 2
-guid: f485492e54da9ae409a557849297235a
+guid: 3f01097a9e96db049b6112231bb00b99
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 176360674088776903
-    second: h2_0
+      213: -6308738315160612336
+    second: ant1_0
   - first:
-      213: 3032945648967265636
-    second: h2_1
+      213: -2026337136612568223
+    second: ant1_1
   - first:
-      213: 6491368936619625904
-    second: h2_2
+      213: 9174307050364692066
+    second: ant1_2
   - first:
-      213: 2404913509927938106
-    second: h2_3
-  - first:
-      213: -8628046258354908014
-    second: h2_4
-  - first:
-      213: -3631197038085983257
-    second: h2_5
+      213: 4430399483601438999
+    second: ant1_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -109,127 +103,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: h2_0
+      name: ant1_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 11
-        width: 53
-        height: 48
+        x: 1
+        y: 5
+        width: 31
+        height: 32
       alignment: 9
-      pivot: {x: 0.8549544, y: 0.52905154}
+      pivot: {x: 0.53018594, y: 0.42351937}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7c4f863491f827200800000000000000
-      internalID: 176360674088776903
+      spriteID: 01294ff6debd278a0800000000000000
+      internalID: -6308738315160612336
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: h2_1
+      name: ant1_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 3
-        width: 47
-        height: 56
+        x: 35
+        y: 5
+        width: 30
+        height: 33
       alignment: 9
-      pivot: {x: 0.840902, y: 0.6001402}
+      pivot: {x: 0.5431891, y: 0.41056812}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46da2cd9fff271a20800000000000000
-      internalID: 3032945648967265636
+      spriteID: 16396093c1101e3e0800000000000000
+      internalID: -2026337136612568223
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: h2_2
+      name: ant1_2
       rect:
         serializedVersion: 2
-        x: 118
-        y: 1
-        width: 41
-        height: 58
+        x: 68
+        y: 5
+        width: 31
+        height: 33
       alignment: 9
-      pivot: {x: 0.7666898, y: 0.60741436}
+      pivot: {x: 0.52089816, y: 0.41493064}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0bdc735b7a9f51a50800000000000000
-      internalID: 6491368936619625904
+      spriteID: 266695d97afa15f70800000000000000
+      internalID: 9174307050364692066
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: h2_3
+      name: ant1_3
       rect:
         serializedVersion: 2
-        x: 180
-        y: 4
-        width: 40
-        height: 55
+        x: 102
+        y: 5
+        width: 31
+        height: 32
       alignment: 9
-      pivot: {x: 0.2842861, y: 0.5863509}
+      pivot: {x: 0.53018606, y: 0.4190206}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a38eac27818ff5120800000000000000
-      internalID: 2404913509927938106
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: h2_4
-      rect:
-        serializedVersion: 2
-        x: 231
-        y: 11
-        width: 52
-        height: 48
-      alignment: 9
-      pivot: {x: 0.23808612, y: 0.5351507}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2941e1134a5034880800000000000000
-      internalID: -8628046258354908014
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: h2_5
-      rect:
-        serializedVersion: 2
-        x: 287
-        y: 11
-        width: 51
-        height: 54
-      alignment: 9
-      pivot: {x: 0.26482975, y: 0.47438756}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7e33f6368856b9dc0800000000000000
-      internalID: -3631197038085983257
+      spriteID: 71943296bd0fb7d30800000000000000
+      internalID: 4430399483601438999
       vertices: []
       indices: 
       edges: []
