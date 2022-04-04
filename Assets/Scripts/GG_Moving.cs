@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
 public class GG_Moving : MonoBehaviour
 {
     Rigidbody2D rb;
@@ -17,6 +18,7 @@ public class GG_Moving : MonoBehaviour
     public bool doLaddering = false;
     public bool CanDoLaddering = true;
     GameObject currLadderPos;
+    GameObject childBlock;
     void Start()
     {
 
@@ -28,6 +30,7 @@ public class GG_Moving : MonoBehaviour
         speedOnLadder = 1;
         originGravity = rb.gravityScale;
         currLadderPos = GameObject.FindGameObjectWithTag("ladder");
+        childBlock = GameObject.Find("forDownLadder");
     }
     void upDownCheck(GameObject ladder)
     {
@@ -44,6 +47,7 @@ public class GG_Moving : MonoBehaviour
             else doLaddering = false;
         if (canMove)
         {
+
             Flip();
             rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
             if (rb.velocity.x != 0)
@@ -71,6 +75,7 @@ public class GG_Moving : MonoBehaviour
         {
             canMove = true;
             anim.SetBool("is_laddering", false);
+            //childBlock.GetComponent<Collider2D>().enabled = false;
             CanDoLaddering = true;
             upDownCheck(currLadderPos);
         }
@@ -94,10 +99,12 @@ public class GG_Moving : MonoBehaviour
                 {
                     rb.gravityScale = 0;
                     ggcol.isTrigger = true;
+                    //childBlock.GetComponent<Collider2D>().enabled = true;
                     rb.velocity = new Vector2(0, speedOnLadder);
                 }
                 if (!upOrDown)
                 {
+                   // childBlock.GetComponent<Collider2D>().enabled = true;
                     rb.gravityScale = 0;
                     ggcol.isTrigger = true;
                     rb.velocity = new Vector2(0, speedOnLadder * -1);
@@ -112,6 +119,7 @@ public class GG_Moving : MonoBehaviour
         {
             upDownCheck(collision.gameObject);
         }
+
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

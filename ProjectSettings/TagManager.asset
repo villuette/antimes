@@ -6,6 +6,8 @@ TagManager:
   tags:
   - ladder
   - ground
+  - wchest
+  - gchest
   layers:
   - Default
   - TransparentFX

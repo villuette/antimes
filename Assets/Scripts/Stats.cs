@@ -6,6 +6,7 @@ public class Stats : MonoBehaviour
 {
     public static int GG_Experience = 0;
     public static int GG_Gold = 0;
+    public static int GG_CurrGold = 0;
     public static int GG_Health = 300;
     public static int GG_MaxHealth = 300;
     public static int GG_Mana = 0;
