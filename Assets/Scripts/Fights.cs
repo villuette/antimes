@@ -7,7 +7,7 @@ public class Fights : MonoBehaviour
     private bool attack = false;
     private int Enemy_Health;
     private int Enemy_Damage;
-    public float coord_x, coord_y;
+    private float coord_x, coord_y;
     [SerializeField] private Text enemy_hp;
     Animator anim_gg, anim_enemy;
 
@@ -30,7 +30,10 @@ public class Fights : MonoBehaviour
             attack = true;
             anim_gg.SetInteger("is_fights_1", 1);
             anim_enemy.SetInteger("is_fights_enemy", 1);
+            anim_gg.SetInteger("is_running", 0);
+            GG_Moving.canMove = false;
             StartCoroutine(FightCoroutine());
+            
         } 
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -41,6 +44,8 @@ public class Fights : MonoBehaviour
             enemy_hp.text = null;
             anim_gg.SetInteger("is_fights_1", 0);
             anim_enemy.SetInteger("is_fights_enemy", 0);
+            anim_gg.SetInteger("is_running", 1);
+            GG_Moving.canMove = true;
             StopCoroutine(FightCoroutine());
         }
     }

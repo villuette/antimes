@@ -9,6 +9,7 @@ TagManager:
   - ground
   - wchest
   - gchest
+  - coin
   layers:
   - Default
   - TransparentFX
@@ -18,18 +19,9 @@ TagManager:
   - UI
   - platform
   - gg
-  layers:
-  - Default
-  - TransparentFX
-  - Ignore Raycast
-  - 
-  - Water
-  - UI
   - 
   - 
   - 
-  - 
-  - grass
   - 
   - 
   - 

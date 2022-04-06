@@ -6,7 +6,7 @@ using System;
 
 public class GG_Moving : MonoBehaviour
 {
-    Rigidbody2D rb;
+    public static Rigidbody2D rb;
     public float speed;
     Animator anim;
     float originGravity;
