@@ -8,9 +8,7 @@ public class SaveLoadSystem : MonoBehaviour
     {
         PlayerPrefs.SetInt("GG_Experience_SAVE", Stats.GG_Experience);
         PlayerPrefs.SetInt("GG_Gold_SAVE", Stats.GG_Gold);
-        PlayerPrefs.SetInt("GG_Health_SAVE", Stats.GG_Health);
         PlayerPrefs.SetInt("GG_MaxHealth_SAVE", Stats.GG_MaxHealth);
-        PlayerPrefs.SetInt("GG_Mana_SAVE", Stats.GG_Mana);
         PlayerPrefs.SetInt("GG_MaxMana_SAVE", Stats.GG_MaxMana);
         PlayerPrefs.SetInt("GG_Damage_SAVE", Stats.GG_Damage);
         PlayerPrefs.SetFloat("GG_Armor_SAVE", Stats.GG_Armor);
@@ -23,9 +21,7 @@ public class SaveLoadSystem : MonoBehaviour
     {
         Stats.GG_Experience = PlayerPrefs.GetInt("GG_Experience_SAVE");
         Stats.GG_Gold = PlayerPrefs.GetInt("GG_Gold_SAVE");
-        Stats.GG_Health = PlayerPrefs.GetInt("GG_Health_SAVE");
         Stats.GG_MaxHealth = PlayerPrefs.GetInt("GG_MaxHealth_SAVE");
-        Stats.GG_Mana = PlayerPrefs.GetInt("GG_Mana_SAVE");
         Stats.GG_MaxMana = PlayerPrefs.GetInt("GG_MaxMana_SAVE");
         Stats.GG_Damage = PlayerPrefs.GetInt("GG_Damage_SAVE");
         Stats.GG_Armor = PlayerPrefs.GetFloat("GG_Armor_SAVE");
