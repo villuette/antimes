@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SaveLoadSystem : MonoBehaviour
 {
+    Town town = new Town();
     public void SaveGame()
     {
         PlayerPrefs.SetInt("GG_Experience_SAVE", Stats.GG_Experience);
@@ -16,6 +17,12 @@ public class SaveLoadSystem : MonoBehaviour
         PlayerPrefs.SetFloat("GG_CRT_DMG_SAVE", Stats.GG_CRT_DMG);
         PlayerPrefs.SetFloat("GG_SUP_DMG_SAVE", Stats.GG_SUP_DMG);
         PlayerPrefs.SetInt("GG_SUP_Manacost_SAVE", Stats.GG_SUP_Manacost);
+        PlayerPrefs.SetInt("MaxHealth_Level", town.MaxHealth_Level);
+        PlayerPrefs.SetInt("Damage_Level", town.Damage_Level);
+        PlayerPrefs.SetInt("Armor_Level", town.Armor_Level);
+        PlayerPrefs.SetInt("CRIT_Level", town.CRIT_Level);
+        PlayerPrefs.SetInt("SUP_Level", town.SUP_Level);
+        PlayerPrefs.SetInt("Shop_Level", town.Shop_Level);
     }
     public void LoadGame()
     {
@@ -29,6 +36,12 @@ public class SaveLoadSystem : MonoBehaviour
         Stats.GG_CRT_DMG = PlayerPrefs.GetFloat("GG_CRT_DMG_SAVE");
         Stats.GG_SUP_DMG = PlayerPrefs.GetFloat("GG_SUP_DMG_SAVE");
         Stats.GG_SUP_Manacost = PlayerPrefs.GetInt("GG_SUP_Manacost_SAVE");
+        town.MaxHealth_Level = PlayerPrefs.GetInt("MaxHealth_Level");
+        town.Damage_Level = PlayerPrefs.GetInt("Damage_Level");
+        town.Armor_Level = PlayerPrefs.GetInt("Armor_Level");
+        town.CRIT_Level = PlayerPrefs.GetInt("CRIT_Level");
+        town.SUP_Level = PlayerPrefs.GetInt("SUP_Level");
+        town.Shop_Level = PlayerPrefs.GetInt("Shop_Level");
     }
     public void DeleteSave()
     {
@@ -46,6 +59,19 @@ public class SaveLoadSystem : MonoBehaviour
         Stats.GG_SUP_DMG = 0.0f;
         Stats.GG_SUP_Manacost = 1;
         Stats.Enemy_Damage = 30;
+        town.MaxHealth_Level = 0;
+        town.Damage_Level = 0;
+        town.Armor_Level = 0;
+        town.CRIT_Level = 0;
+        town.SUP_Level = 0;
+        town.Shop_Level = 0;
         SaveGame();
+    }
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            SaveGame();
+        }
     }
 }
