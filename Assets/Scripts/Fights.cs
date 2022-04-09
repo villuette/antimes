@@ -8,6 +8,7 @@ public class Fights : MonoBehaviour
     private bool gg_attack = true;
     private int Enemy_Health;
     private int Enemy_Damage;
+    private int Eneme_lvl;
     private float coord_x, coord_y, gg_coord_x;
     [SerializeField] private Text enemy_hp;
     Animator anim_gg, anim_enemy;
@@ -19,6 +20,7 @@ public class Fights : MonoBehaviour
         Stats_Enemy enemy = gameObject.AddComponent<Stats_Enemy>();
         Enemy_Health = enemy.Enemy_Health;
         Enemy_Damage = enemy.Enemy_Damage;
+        Eneme_lvl = enemy.Enemy_lvl;
         anim_gg = GameObject.Find("GG").GetComponent<Animator>();
         anim_enemy = GetComponent<Animator>();
         gg_obj = GameObject.Find("GG");
@@ -72,10 +74,10 @@ public class Fights : MonoBehaviour
         {
             // Получает координаты моба
             coord_x = transform.position.x;
-            coord_y = transform.position.y + 0.2f;
+            coord_y = transform.position.y + 0.3f;
             // Присваивает координаты моба к тексту
             enemy_hp.transform.position = new Vector2(coord_x, coord_y);
-            enemy_hp.text = Enemy_Health + "\u2764";
+            enemy_hp.text = "lvl " + Eneme_lvl + "\n" + Enemy_Health + "\u2764";
         }
     }
     private void WhoIsAttacking()

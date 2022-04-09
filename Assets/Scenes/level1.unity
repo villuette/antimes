@@ -2289,11 +2289,11 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 68b8f5d7d81e71541956a15f30d5696b, type: 3}
     m_FontSize: 70
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 1
     m_MaxSize: 70
-    m_Alignment: 5
+    m_Alignment: 4
     m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 1
