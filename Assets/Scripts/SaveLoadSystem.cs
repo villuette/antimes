@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SaveLoadSystem : MonoBehaviour
 {
-    Town town = new Town();
+    public Town town = null;
     public void SaveGame()
     {
         PlayerPrefs.SetInt("GG_Experience_SAVE", Stats.GG_Experience);

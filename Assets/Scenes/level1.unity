@@ -206,7 +206,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1708464212}
+      - m_Target: {fileID: 1064884938}
         m_TargetAssemblyTypeName: SaveLoadSystem, Assembly-CSharp
         m_MethodName: SaveGame
         m_Mode: 1
@@ -418,19 +418,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1708464212}
-        m_TargetAssemblyTypeName: SaveLoadSystem, Assembly-CSharp
-        m_MethodName: SaveGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1708464213}
+      - m_Target: {fileID: 1064884937}
         m_TargetAssemblyTypeName: SceneSwap, Assembly-CSharp
         m_MethodName: Load_Town
         m_Mode: 1
@@ -442,7 +430,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1708464212}
+      - m_Target: {fileID: 1064884938}
         m_TargetAssemblyTypeName: SaveLoadSystem, Assembly-CSharp
         m_MethodName: LoadGame
         m_Mode: 1
@@ -948,7 +936,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1708464212}
+      - m_Target: {fileID: 1064884938}
         m_TargetAssemblyTypeName: SaveLoadSystem, Assembly-CSharp
         m_MethodName: LoadGame
         m_Mode: 1
@@ -1107,6 +1095,91 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &1064884935
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1064884939}
+  - component: {fileID: 1064884938}
+  - component: {fileID: 1064884937}
+  - component: {fileID: 1064884936}
+  m_Layer: 0
+  m_Name: Scane&SaveLoadSystems
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1064884936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064884935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 918cb4dab65e9d945b2afbb71de93b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth_Level: 0
+  Damage_Level: 0
+  Armor_Level: 0
+  CRIT_Level: 0
+  SUP_Level: 0
+  Shop_Level: 0
+  Max_Level: 5
+  MaxHP_UP: []
+  DMG_UP: []
+  Armor_UP: []
+  CRIT_UP: []
+  SUP_UP: []
+  canvas: {fileID: 0}
+  check: 1
+--- !u!114 &1064884937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064884935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 080a97a2e567f924792cb82d46d2f36a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveLoadSystem: {fileID: 1064884938}
+--- !u!114 &1064884938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064884935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c16b1558930b8864f8b45d2d9a76e55e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  town: {fileID: 1064884936}
+--- !u!4 &1064884939
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064884935}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.15320641, y: 0.57817847, z: -4.070425}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1129575669
 GameObject:
   m_ObjectHideFlags: 0
@@ -1819,10 +1892,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1708464210}
   - component: {fileID: 1708464209}
-  - component: {fileID: 1708464212}
   - component: {fileID: 1708464208}
   - component: {fileID: 1708464211}
-  - component: {fileID: 1708464213}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1912,30 +1983,6 @@ MonoBehaviour:
   damping: 2
   offset: {x: 0, y: 0.08}
   faceLeft: 0
---- !u!114 &1708464212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1708464207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c16b1558930b8864f8b45d2d9a76e55e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1708464213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1708464207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 080a97a2e567f924792cb82d46d2f36a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1717759423
 GameObject:
   m_ObjectHideFlags: 0
@@ -2385,7 +2432,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1708464212}
+      - m_Target: {fileID: 1064884938}
         m_TargetAssemblyTypeName: SaveLoadSystem, Assembly-CSharp
         m_MethodName: SaveGame
         m_Mode: 1
@@ -2397,7 +2444,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1708464213}
+      - m_Target: {fileID: 1064884937}
         m_TargetAssemblyTypeName: SceneSwap, Assembly-CSharp
         m_MethodName: ExitGame
         m_Mode: 1

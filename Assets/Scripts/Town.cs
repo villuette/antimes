@@ -22,11 +22,13 @@ public class Town : MonoBehaviour
     public GameObject canvas;
     Color color = new Color(1, 0, 0);
     int flag;
+    public int Up_Cost = 200;
     public bool check = true;
+    public bool keyTouched = false;
     private void Start()
     {
-        Stats.GG_Experience += 1000;
-        Stats.GG_Gold += 1000;
+        Stats.GG_Experience += 1000000;
+        Stats.GG_Gold += 10000000;
         SR = GetComponent<SpriteRenderer>();
         MaxHealth_Level = PlayerPrefs.GetInt("MaxHealth_Level");
         Damage_Level = PlayerPrefs.GetInt("Damage_Level");
@@ -37,9 +39,9 @@ public class Town : MonoBehaviour
     }
     public void Up_MaxHealth_Level()
     {
-        if (MaxHealth_Level < Max_Level && Stats.GG_Experience >= 1)
+        if (MaxHealth_Level < Max_Level && Stats.GG_Experience >= Up_Cost)
         {
-            Stats.GG_Experience -= 1;
+            Stats.GG_Experience -= Up_Cost;
             MaxHealth_Level += 1;
             Stats.GG_MaxHealth += 30;
             if (MaxHealth_Level <= 5)
@@ -62,9 +64,9 @@ public class Town : MonoBehaviour
     }
     public void Up_Damage_Level()
     {
-        if (Damage_Level < Max_Level && Stats.GG_Experience >= 1)
+        if (Damage_Level < Max_Level && Stats.GG_Experience >= Up_Cost)
         {
-            Stats.GG_Experience -= 1;
+            Stats.GG_Experience -= Up_Cost;
             Damage_Level += 1;
             Stats.GG_Damage += 2;
             if (Damage_Level <= 5)
@@ -87,9 +89,9 @@ public class Town : MonoBehaviour
     }
     public void Up_Armor_Level()
     {
-        if (Armor_Level < Max_Level && Stats.GG_Experience >= 1)
+        if (Armor_Level < Max_Level && Stats.GG_Experience >= Up_Cost)
         {
-            Stats.GG_Experience -= 1;
+            Stats.GG_Experience -= Up_Cost;
             Armor_Level += 1;
             Stats.GG_Armor += 1;
             if (Armor_Level <= 5)
@@ -112,9 +114,9 @@ public class Town : MonoBehaviour
     }
     public void Up_CRIT_Level()
     {
-        if (CRIT_Level < Max_Level && Stats.GG_Experience >= 1)
+        if (CRIT_Level < Max_Level && Stats.GG_Experience >= Up_Cost)
         {
-            Stats.GG_Experience -= 1;
+            Stats.GG_Experience -= Up_Cost;
             CRIT_Level += 1;
             Stats.GG_CRT_CHN += 1;
             Stats.GG_CRT_DMG += 1;
@@ -138,9 +140,9 @@ public class Town : MonoBehaviour
     }
     public void Up_SUP_Level()
     {
-        if (SUP_Level < Max_Level && Stats.GG_Experience >= 1)
+        if (SUP_Level < Max_Level && Stats.GG_Experience >= Up_Cost)
         {
-            Stats.GG_Experience -= 1;
+            Stats.GG_Experience -= Up_Cost;
             SUP_Level += 1;
             Stats.GG_SUP_DMG += 1;
             if (SUP_Level <= 5)
@@ -161,75 +163,156 @@ public class Town : MonoBehaviour
             }
         }
     }
+    public void ColorSystem(int i)
+    {
+        switch (i)
+        {
+            case 0:
+                color = new Color(1, 0, 0);
+                break;
+            case 1:
+                color = new Color(1, 0, 0);
+                break;
+            case 2:
+                color = new Color(1, 0.5f, 0);
+                break;
+            case 3:
+                color = new Color(1, 1, 0);
+                break;
+            case 4:
+                color = new Color(0, 1, 1);
+                break;
+            case 5:
+                color = new Color(0, 1, 0);
+                break;
+            case 6:
+                color = new Color(0.5f, 0, 0);
+                break;
+            case 7:
+                color = new Color(0.5f, 1, 0.5f);
+                break;
+            case 8:
+                color = new Color(0, 1, 0.5f);
+                break;
+            case 9:
+                color = new Color(0, 0, 1);
+                break;
+        }
+    }
     public void Up_Shop_Level()
     {
-        if (MaxHealth_Level == Max_Level && Damage_Level == Max_Level && Armor_Level == Max_Level && CRIT_Level == Max_Level && SUP_Level == Max_Level && Stats.GG_Gold >= 1)
+        if (MaxHealth_Level == Max_Level && Damage_Level == Max_Level && Armor_Level == Max_Level && CRIT_Level == Max_Level && SUP_Level == Max_Level && Stats.GG_Gold >= 1 && Shop_Level < 9)
         {
             Shop_Level += 1;
             Max_Level += 5;
             Stats.GG_Gold -= 1;
         }
-        if (Shop_Level == 2)
-            color = new Color(1, 0.5f, 0);
-        if (Shop_Level == 3)
-            color = new Color(1, 1, 0);
-        if (Shop_Level == 4)
-            color = new Color(0.5f, 1, 0);
-        if (Shop_Level == 5)
-            color = new Color(0, 1, 0);
-        if (Shop_Level == 6)
-            color = new Color(0, 1, 0.5f);
-        if (Shop_Level == 7)
-            color = new Color(0, 1, 1);
-        if (Shop_Level == 8)
-            color = new Color(0, 0.5f, 1);
-        if (Shop_Level == 9)
-            color = new Color(0, 0, 1);
-        if (Shop_Level == 10)
-            color = new Color(0.5f, 0, 0);
+        ColorSystem(Shop_Level);
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+            keyTouched = true;
+        if (Input.GetKeyUp(KeyCode.F))
+            keyTouched = false;
     }
     public void OnTriggerStay2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Player" && Input.GetKeyDown(KeyCode.F))
+        if (col.gameObject.tag == "Player" && keyTouched)
         {
+            GG_Moving.canMove = false;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>().SetInteger("is_running", 0);
             if (check)
             {
                 Max_Level += 5 * Shop_Level;
+                Stats.GG_Experience += 100000;
+                int CheckColor = -1;
                 int check_LVL = MaxHealth_Level;
                 MaxHealth_Level = 0;
-                Stats.GG_Experience += 100000;
-                for (int i = 0; i < check_LVL;++i)
+                for (int i = 0; i < check_LVL; ++i)
                 {
-                    Up_MaxHealth_Level();
-                    Stats.GG_Experience += 1;
+                    if (i % 5 == 0)
+                    {
+                        CheckColor++;
+                        ColorSystem(CheckColor);                       
+                        Up_MaxHealth_Level();                        
+                    }
+                    else
+                        Up_MaxHealth_Level();
+                    ColorSystem(CheckColor);
+                    Stats.GG_MaxHealth -= 30;
+                    Stats.GG_Experience += Up_Cost;
                 }
+
+
+                CheckColor = -1;
                 check_LVL = Damage_Level;
                 Damage_Level = 0;
                 for (int i = 0; i < check_LVL; ++i)
                 {
-                    Up_Damage_Level();
-                    Stats.GG_Experience += 1;
+                    if (i % 5 == 0)
+                    {
+                        CheckColor++;
+                        ColorSystem(CheckColor);
+                        Up_Damage_Level();                      
+                    }
+                    else
+                        Up_Damage_Level();
+                    ColorSystem(CheckColor);
+                    Stats.GG_Experience += Up_Cost;
+                    Stats.GG_Damage -= 2;
                 }
+                CheckColor = -1;
                 check_LVL = Armor_Level;
                 Armor_Level = 0;
                 for (int i = 0; i < check_LVL; ++i)
                 {
-                    Up_Armor_Level();
-                    Stats.GG_Experience += 1;
+                    if (i % 5 == 0)
+                    {
+                        CheckColor++;
+                        ColorSystem(CheckColor);
+                        Up_Armor_Level();
+                    }
+                    else
+                        Up_Armor_Level();
+                    ColorSystem(CheckColor);
+                    Stats.GG_Armor -= 1;
+                    Stats.GG_Experience += Up_Cost;
                 }
+                CheckColor = -1;
                 check_LVL = CRIT_Level;
                 CRIT_Level = 0;
                 for (int i = 0; i < check_LVL; ++i)
                 {
-                    Up_CRIT_Level();
-                    Stats.GG_Experience += 1;
+                    if (i % 5 == 0)
+                    {
+                        CheckColor++;
+                        ColorSystem(CheckColor);
+                        Up_CRIT_Level();
+                    }
+                    else
+                        Up_CRIT_Level();
+                    ColorSystem(CheckColor);
+                    Stats.GG_CRT_CHN -= 1;
+                    Stats.GG_CRT_DMG -= 1;
+                    Stats.GG_Experience += Up_Cost;
                 }
+                CheckColor = -1;
                 check_LVL = SUP_Level;
                 SUP_Level = 0;
                 for (int i = 0; i < check_LVL; ++i)
                 {
-                    Up_SUP_Level();
-                    Stats.GG_Experience += 1;
+                    if (i % 5 == 0)
+                    {
+                        CheckColor++;
+                        ColorSystem(CheckColor);
+                        Up_SUP_Level();
+                    }
+                    else
+                        Up_SUP_Level();
+                    ColorSystem(CheckColor);
+                    Stats.GG_SUP_DMG -= 1;
+                    Stats.GG_Experience +=Up_Cost;
                 }
                 Stats.GG_Experience -= 100000;
                 check = false;
@@ -240,5 +323,6 @@ public class Town : MonoBehaviour
     public void CloseMenu()
     {
         canvas.SetActive(false);
+        GG_Moving.canMove = true;
     }
 }
