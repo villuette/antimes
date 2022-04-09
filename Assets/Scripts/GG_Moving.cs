@@ -58,7 +58,6 @@ public class GG_Moving : MonoBehaviour
 
 
     }
-
     void Flip()
     {
         if (canMove)
