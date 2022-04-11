@@ -163,39 +163,39 @@ public class Town : MonoBehaviour
             }
         }
     }
-    public void ColorSystem(int i)
+    public void ColorSystem(int i, ref Color col)
     {
         switch (i)
         {
             case 0:
-                color = new Color(1, 0, 0);
+                col = new Color(0, 0, 0);
                 break;
             case 1:
-                color = new Color(1, 0, 0);
+                col = new Color(1, 0, 0);
                 break;
             case 2:
-                color = new Color(1, 0.5f, 0);
+                col = new Color(1, 0.5f, 0);
                 break;
             case 3:
-                color = new Color(1, 1, 0);
+                col = new Color(1, 1, 0);
                 break;
             case 4:
-                color = new Color(0, 1, 1);
+                col = new Color(0, 1, 1);
                 break;
             case 5:
-                color = new Color(0, 1, 0);
+                col = new Color(0, 1, 0);
                 break;
             case 6:
-                color = new Color(0.5f, 0, 0);
+                col = new Color(0, 0, 1);
                 break;
             case 7:
-                color = new Color(0.5f, 1, 0.5f);
+                col = new Color(0, 0, 0.5f);
                 break;
             case 8:
-                color = new Color(0, 1, 0.5f);
+                col = new Color(0.5f, 0, 0.5f);
                 break;
             case 9:
-                color = new Color(0, 0, 1);
+                col = new Color(0.5f, 0, 0);
                 break;
         }
     }
@@ -207,7 +207,7 @@ public class Town : MonoBehaviour
             Max_Level += 5;
             Stats.GG_Gold -= 1;
         }
-        ColorSystem(Shop_Level);
+        ColorSystem(Shop_Level, ref color);
     }
     private void Update()
     {
@@ -234,12 +234,12 @@ public class Town : MonoBehaviour
                     if (i % 5 == 0)
                     {
                         CheckColor++;
-                        ColorSystem(CheckColor);                       
-                        Up_MaxHealth_Level();                        
+                        ColorSystem(CheckColor, ref color);
+                        Up_MaxHealth_Level();
                     }
                     else
                         Up_MaxHealth_Level();
-                    ColorSystem(CheckColor);
+                    ColorSystem(CheckColor, ref color);
                     Stats.GG_MaxHealth -= 30;
                     Stats.GG_Experience += Up_Cost;
                 }
@@ -253,12 +253,12 @@ public class Town : MonoBehaviour
                     if (i % 5 == 0)
                     {
                         CheckColor++;
-                        ColorSystem(CheckColor);
-                        Up_Damage_Level();                      
+                        ColorSystem(CheckColor, ref color);
+                        Up_Damage_Level();
                     }
                     else
                         Up_Damage_Level();
-                    ColorSystem(CheckColor);
+                    ColorSystem(CheckColor, ref color);
                     Stats.GG_Experience += Up_Cost;
                     Stats.GG_Damage -= 2;
                 }
@@ -270,12 +270,12 @@ public class Town : MonoBehaviour
                     if (i % 5 == 0)
                     {
                         CheckColor++;
-                        ColorSystem(CheckColor);
+                        ColorSystem(CheckColor, ref color);
                         Up_Armor_Level();
                     }
                     else
                         Up_Armor_Level();
-                    ColorSystem(CheckColor);
+                    ColorSystem(CheckColor, ref color);
                     Stats.GG_Armor -= 1;
                     Stats.GG_Experience += Up_Cost;
                 }
@@ -287,12 +287,12 @@ public class Town : MonoBehaviour
                     if (i % 5 == 0)
                     {
                         CheckColor++;
-                        ColorSystem(CheckColor);
+                        ColorSystem(CheckColor, ref color);
                         Up_CRIT_Level();
                     }
                     else
                         Up_CRIT_Level();
-                    ColorSystem(CheckColor);
+                    ColorSystem(CheckColor, ref color);
                     Stats.GG_CRT_CHN -= 1;
                     Stats.GG_CRT_DMG -= 1;
                     Stats.GG_Experience += Up_Cost;
@@ -305,14 +305,14 @@ public class Town : MonoBehaviour
                     if (i % 5 == 0)
                     {
                         CheckColor++;
-                        ColorSystem(CheckColor);
+                        ColorSystem(CheckColor, ref color);
                         Up_SUP_Level();
                     }
                     else
                         Up_SUP_Level();
-                    ColorSystem(CheckColor);
+                    ColorSystem(CheckColor, ref color);
                     Stats.GG_SUP_DMG -= 1;
-                    Stats.GG_Experience +=Up_Cost;
+                    Stats.GG_Experience += Up_Cost;
                 }
                 Stats.GG_Experience -= 100000;
                 check = false;
