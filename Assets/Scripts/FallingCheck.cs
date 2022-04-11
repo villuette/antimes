@@ -15,7 +15,7 @@ public class FallingCheck : MonoBehaviour
             flyTime += Time.deltaTime;
             if (flyTime >= deadFlyTime)
             {
-                Destroy(GameObject.Find("GG"));
+                //Destroy(GameObject.Find("GG"));
                 Debug.Log("Time dead");
             }
         }
@@ -36,7 +36,7 @@ public class FallingCheck : MonoBehaviour
             Debug.Log("GG: " + Stats.GG_Health);
             if (Stats.GG_Health <= 0)
             {
-                Destroy(GameObject.Find("GG"));
+                //Destroy(GameObject.Find("GG"));
             }
         }
     }
