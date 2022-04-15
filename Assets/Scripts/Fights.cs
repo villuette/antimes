@@ -6,6 +6,7 @@ public class Fights : MonoBehaviour
 {
     private bool attack = false;
     private bool gg_attack = true;
+    private bool switch_attack = true;
     private int Enemy_Health;
     private int Enemy_Damage;
     private int Eneme_lvl;
@@ -48,8 +49,8 @@ public class Fights : MonoBehaviour
             attack = false;
             enemy_hp.text = null;
             anim_gg.SetInteger("is_fights_1", 0);
+            anim_gg.SetInteger("is_fights_2", 0);
             anim_gg.SetInteger("is_hide", 0);
-            anim_gg.SetInteger("is_running", 1);
             anim_enemy.SetInteger("is_fights_enemy", 0);
             anim_enemy.SetInteger("is_enemy_hide", 0);
             GG_Moving.canMove = true;
@@ -82,12 +83,21 @@ public class Fights : MonoBehaviour
     }
     private void WhoIsAttacking()
     {
-        if(gg_attack)
+        if (gg_attack)
         {
             Stats.GG_Health -= (int)((1 - Stats.GG_Armor) * Enemy_Damage);
+            if (switch_attack)
+            {
+                anim_gg.SetInteger("is_fights_1", 1);
+                switch_attack = false;
+            } 
+            else
+            {
+                anim_gg.SetInteger("is_fights_2", 1);
+                switch_attack = true;
+            }
             anim_enemy.SetInteger("is_fights_enemy", 0);
             anim_enemy.SetInteger("is_enemy_hide", 1);
-            anim_gg.SetInteger("is_fights_1", 1);
             anim_gg.SetInteger("is_hide", 0);
             gg_attack = false;
         } 
@@ -97,6 +107,7 @@ public class Fights : MonoBehaviour
             anim_enemy.SetInteger("is_fights_enemy", 1);
             anim_enemy.SetInteger("is_enemy_hide", 0);
             anim_gg.SetInteger("is_fights_1", 0);
+            anim_gg.SetInteger("is_fights_2", 0);
             anim_gg.SetInteger("is_hide", 1);
             gg_attack = true;
         }
@@ -110,14 +121,20 @@ public class Fights : MonoBehaviour
             Debug.Log("GG: " + Stats.GG_Health);
             if (Stats.GG_Health <= 0)
             {
-                Destroy(GameObject.Find("GG"));
+                anim_gg.Play("gg_death");
+                anim_enemy.SetInteger("is_fights_enemy", 0);
+                anim_enemy.SetInteger("is_enemy_hide", 0);
                 attack = false;
             }
             if (Enemy_Health <= 0)
             {
-                Destroy(gameObject);
-                attack = false;
                 enemy_hp.text = null;
+                anim_gg.SetInteger("is_fights_1", 0);
+                anim_gg.SetInteger("is_hide", 0);
+                anim_enemy.Play("enemy_death");
+                GG_Moving.canMove = true;
+                Destroy(gameObject, 1f);
+                attack = false;
             }
         }
     }
