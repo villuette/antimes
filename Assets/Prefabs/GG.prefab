@@ -82,6 +82,8 @@ MonoBehaviour:
   coord_x: 0
   coord_y: 0
   text_coins: {fileID: 0}
+  coin_margin: 0.14
+  gen_coins_obj: {fileID: 0}
 --- !u!50 &267091447
 Rigidbody2D:
   serializedVersion: 4
@@ -292,7 +294,6 @@ MonoBehaviour:
   speedOnLadder: 0
   ggcol: {fileID: 0}
   doLaddering: 0
-  CanDoLaddering: 1
 --- !u!61 &290780771
 BoxCollider2D:
   m_ObjectHideFlags: 0

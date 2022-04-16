@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class forDownLadderScr : MonoBehaviour
 {
-    Collider2D ggcol;
-    Collider2D chestcol;
-    Collider2D thiscol;
+    BoxCollider2D ggcol;
+    BoxCollider2D chestcol;
+    BoxCollider2D thiscol;
     public int earnedMoney;
     public int minMoneyEarned, maxMoneyEarned;
     [SerializeField] public bool show_coins_wchest = false;
@@ -19,8 +19,8 @@ public class forDownLadderScr : MonoBehaviour
     [SerializeField] public float coord_x, coord_y;
     [SerializeField] private Text text_coins;
     public float coin_margin;
-    SpriteRenderer sr;
-    // Start is called before the first frame update
+    float invisability = 0.0f;
+
 
     Gen_Coins gen_coins;
     public GameObject gen_coins_obj; //скрипт gen_coins привязан к пустому объекту на сцене
@@ -28,9 +28,9 @@ public class forDownLadderScr : MonoBehaviour
     void Start()
     {
         gen_coins = gen_coins_obj.GetComponent<Gen_Coins>();
-        ggcol = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>();
-        thiscol = GetComponent<Collider2D>();
-        //thiscol.enabled = false;
+        ggcol = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
+        thiscol = GetComponent<BoxCollider2D>();
+
     }
     void FixedUpdate()
     {
@@ -42,7 +42,6 @@ public class forDownLadderScr : MonoBehaviour
         {
             ggcol.isTrigger = false;
             GG_Moving.canMove = false;
-            //thiscol.enabled = false;
         }
 
     }
@@ -54,7 +53,7 @@ public class forDownLadderScr : MonoBehaviour
             coinsTime = 0;
             earnedMoney = UnityEngine.Random.Range(minMoneyEarned, maxMoneyEarned);
             Stats.GG_CurrGold += earnedMoney;
-            chestcol = collision.GetComponent<Collider2D>();
+            chestcol = collision.GetComponent<BoxCollider2D>();
             collision.gameObject.GetComponent<Animator>().enabled = true;
             collision.enabled = false;
             show_coins_wchest = true;
@@ -64,6 +63,7 @@ public class forDownLadderScr : MonoBehaviour
                 Destroy(gen_coins.generated_coins);
                 gen_coins.CreateCoin();
                 coinsTime = 0;
+                invisability = 0.0f;
                 show_coins_gchest = false;
             }
             else
@@ -74,7 +74,7 @@ public class forDownLadderScr : MonoBehaviour
             coinsTime = 0;
             earnedMoney = UnityEngine.Random.Range(minMoneyEarned, maxMoneyEarned) * 10;
             Stats.GG_CurrGold += earnedMoney;
-            chestcol = collision.GetComponent<Collider2D>();
+            chestcol = collision.GetComponent<BoxCollider2D>();
             collision.gameObject.GetComponent<Animator>().enabled = true;
             collision.enabled = false;
             show_coins_gchest = true;
@@ -85,23 +85,27 @@ public class forDownLadderScr : MonoBehaviour
                 Destroy(gen_coins.generated_coins);
                 gen_coins.CreateCoin();
                 coinsTime = 0;
+                invisability = 0.0f;
                 scale = 0.2f;
             }
             else gen_coins.CreateCoin();
         }
+        //if (collision.CompareTag("ground"))
+        //    GG_Moving.canMove = true;
     }
     private void ShowCoins()
     {
         if (show_coins_wchest)
         {
-
-
-
             text_coins.text = Convert.ToString(earnedMoney);
             if (showCoinsTime >= coinsTime)
             {
+                text_coins.color = new Color(1, 0.92f, 0.016f, 1 - invisability);
+                gen_coins.generated_coins.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1 - invisability);
+                if (invisability < 1)
+                    invisability += 0.03f;
                 coinsTime += Time.deltaTime;
-                coord_x = chestcol.transform.position.x;
+                coord_x = chestcol.gameObject.transform.position.x;
                 coord_y = chestcol.transform.position.y + scale;
                 text_coins.transform.position = new Vector2(coord_x, coord_y);
                 gen_coins.generated_coins.transform.position = new Vector2(coord_x + coin_margin, coord_y);
@@ -113,18 +117,20 @@ public class forDownLadderScr : MonoBehaviour
                 Destroy(gen_coins.generated_coins);
                 coinsTime = 0f;
                 scale = 0.2f;
+                invisability = 0.0f;
                 show_coins_wchest = false;
 
             }
         }
         if (show_coins_gchest)
         {
-
-
-
             text_coins.text = Convert.ToString(earnedMoney);
             if (showCoinsTime >= coinsTime)
             {
+                text_coins.color = new Color(1, 0.92f, 0.016f, 1 - invisability);
+                gen_coins.generated_coins.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1 - invisability);
+                if (invisability < 1)
+                    invisability += 0.03f;
                 coinsTime += Time.deltaTime;
                 coord_x = chestcol.transform.position.x;
                 coord_y = chestcol.transform.position.y + scale;
@@ -138,6 +144,7 @@ public class forDownLadderScr : MonoBehaviour
                 Destroy(gen_coins.generated_coins);
                 coinsTime = 0f;
                 scale = 0.2f;
+                invisability = 0.0f;
                 show_coins_gchest = false;
 
             }

@@ -16,9 +16,9 @@ public class GG_Moving : MonoBehaviour
     public float speedOnLadder;
     public Collider2D ggcol;
     public bool doLaddering = false;
-    public bool CanDoLaddering = true;
+    public static bool CanDoLaddering = true;
     GameObject currLadderPos;
-    GameObject childBlock;
+    float walkSpeed = 0;
     void Start()
     {
 
@@ -30,7 +30,6 @@ public class GG_Moving : MonoBehaviour
         speedOnLadder = 1;
         originGravity = rb.gravityScale;
         currLadderPos = GameObject.FindGameObjectWithTag("ladder");
-        childBlock = GameObject.Find("forDownLadder");
     }
     void upDownCheck(GameObject ladder)
     {
@@ -41,22 +40,31 @@ public class GG_Moving : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if (canMove)
+        {
+            Flip();
+            rb.velocity = new Vector2(walkSpeed, rb.velocity.y);
+            if (Math.Abs(rb.velocity.x) > 2e-3)
+                anim.SetInteger("is_running", 1);
+            if (Math.Abs(rb.velocity.x) < 2e-3)
+            {
+                anim.SetInteger("is_running", 0);
+                //rb.velocity = new Vector2(0, rb.velocity.y);
+            }
+
+        }
+
+
+    }
+    private void Update()
+    {
+        walkSpeed = Input.GetAxis("Horizontal") * speed;
+
         if (CanDoLaddering)
             if (Input.GetKey(KeyCode.E))
                 doLaddering = true;
             else doLaddering = false;
-        if (canMove)
-        {
-
-            Flip();
-            rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
-            if (rb.velocity.x != 0)
-                anim.SetInteger("is_running", 1);
-            if (rb.velocity.x == 0)
-                anim.SetInteger("is_running", 0);
-        }
-
-
+        else canMove = false;
     }
     void Flip()
     {
@@ -74,7 +82,6 @@ public class GG_Moving : MonoBehaviour
         {
             canMove = true;
             anim.SetBool("is_laddering", false);
-            //childBlock.GetComponent<Collider2D>().enabled = false;
             CanDoLaddering = true;
             upDownCheck(currLadderPos);
         }
@@ -91,19 +98,17 @@ public class GG_Moving : MonoBehaviour
                 CanDoLaddering = false;
                 doLaddering = false;
                 anim.SetBool("is_laddering", true);
-                canMove = false;
+                //canMove = false;
                 transform.position = new Vector3(collision.gameObject.transform.position.x, transform.position.y, transform.position.z); //поставить посреди лестницы
                 rb.velocity = new Vector2(0, 0);
                 if (upOrDown)
                 {
                     rb.gravityScale = 0;
                     ggcol.isTrigger = true;
-                    //childBlock.GetComponent<Collider2D>().enabled = true;
                     rb.velocity = new Vector2(0, speedOnLadder);
                 }
                 if (!upOrDown)
                 {
-                   // childBlock.GetComponent<Collider2D>().enabled = true;
                     rb.gravityScale = 0;
                     ggcol.isTrigger = true;
                     rb.velocity = new Vector2(0, speedOnLadder * -1);
@@ -126,11 +131,11 @@ public class GG_Moving : MonoBehaviour
         {
             ggcol.isTrigger = false;
             rb.velocity = new Vector2(0, 0);
-            canMove = true;
             rb.gravityScale = originGravity;
             anim.SetBool("is_laddering", false);
             upDownCheck(collision.gameObject);
             CanDoLaddering = true;
+            canMove = true;
         }
     }
 }

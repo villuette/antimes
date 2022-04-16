@@ -18,7 +18,6 @@ public class BGparallax : MonoBehaviour
     SpriteRenderer sr;
     Vector3 Point_to_translate;
 
-    // Start is called before the first frame update
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -34,7 +33,7 @@ public class BGparallax : MonoBehaviour
         BGh = sr.size.y;
         CAMh = CAM.gameObject.GetComponent<Camera>().pixelHeight / sr.sprite.pixelsPerUnit;
     }
-    // Update is called once per frame
+
     void Update()
     {
         tvy = tv.y;

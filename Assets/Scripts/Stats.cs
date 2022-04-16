@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Stats : MonoBehaviour
 {
+    public static GameObject GG;
     public static int GG_Experience = 0;
     public static int GG_Gold = 0;
     public static int GG_CurrGold = 0;
@@ -18,10 +19,15 @@ public class Stats : MonoBehaviour
     public static float GG_SUP_DMG = 0.0f;
     public static int GG_SUP_Manacost = 1;
     public static int Enemy_Damage = 30;
-    public void lowHP()
+
+    private void Start()
     {
-        GG_Health -= 1;
-        Debug.Log(GG_Health);
+        GG = GameObject.FindGameObjectWithTag("Player");
+    }
+    public static void GG_Death()
+    {
+        GG_CurrGold = 0;
+        Debug.Log("Immitate death!");
     }
     
 }

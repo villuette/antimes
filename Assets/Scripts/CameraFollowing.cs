@@ -14,7 +14,6 @@ public class CameraFollowing : MonoBehaviour
 	{
 		offset = new Vector2(Mathf.Abs(offset.x), offset.y);
 		FindPlayer(faceLeft);
-		//transform.position = player.gameObject.transform.position;
 	}
 
 	public void FindPlayer(bool playerFaceLeft)
