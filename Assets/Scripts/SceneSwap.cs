@@ -19,7 +19,7 @@ public class SceneSwap : MonoBehaviour
         saveLoadSystem.LoadGame();
         Stats.GG_Gold += Stats.GG_UGold;
         Stats.GG_UGold = 0;
-        //Stats.GG_Health = Stats.GG_MaxHealth;
+        Stats.GG_Health = Stats.GG_MaxHealth;
         Stats.GG_Mana = Stats.GG_MaxMana;
     }
     public void Load_Menu()

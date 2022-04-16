@@ -4,7 +4,6 @@ using UnityEngine;
 using System;
 public class HealthSystem : MonoBehaviour
 {
-    public SaveLoadSystem saveLoadSystem = null;
     public GameObject HPBar;
     public GameObject TownScriptsObj;
     public GameObject leftCornBar;
@@ -22,7 +21,6 @@ public class HealthSystem : MonoBehaviour
 
     void Start()
     {
-        saveLoadSystem.LoadGame();
         town = TownScriptsObj.GetComponent<Town>();
         town.ColorSystem(0, ref color);
         posX = leftCornBar.GetComponent<Transform>().position.x;
