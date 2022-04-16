@@ -48,8 +48,8 @@ public class SaveLoadSystem : MonoBehaviour
         PlayerPrefs.DeleteAll();
         Stats.GG_Experience = 0;
         Stats.GG_Gold = 0;
-        Stats.GG_Health = 1500;
-        Stats.GG_MaxHealth = 1500;
+        Stats.GG_Health = 500;
+        Stats.GG_MaxHealth = 500;
         Stats.GG_Mana = 0;
         Stats.GG_MaxMana = 0;
         Stats.GG_Damage = 6;

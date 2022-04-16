@@ -27,8 +27,8 @@ public class Town : MonoBehaviour
     public bool keyTouched = false;
     private void Start()
     {
-        Stats.GG_Experience += 1000000;
-        Stats.GG_Gold += 10000000;
+        Stats.GG_Experience += 100000;
+        Stats.GG_Gold += 100000;
         SR = GetComponent<SpriteRenderer>();
         MaxHealth_Level = PlayerPrefs.GetInt("MaxHealth_Level");
         Damage_Level = PlayerPrefs.GetInt("Damage_Level");
@@ -43,7 +43,8 @@ public class Town : MonoBehaviour
         {
             Stats.GG_Experience -= Up_Cost;
             MaxHealth_Level += 1;
-            Stats.GG_MaxHealth += 30;
+            Stats.GG_MaxHealth += 100;
+            Stats.GG_Health = Stats.GG_MaxHealth;
             if (MaxHealth_Level <= 5)
             {
                 if (MaxHealth_Level % 5 != 0)
@@ -168,7 +169,7 @@ public class Town : MonoBehaviour
         switch (i)
         {
             case 0:
-                col = new Color(0, 0, 0);
+                col = new Color(1, 1, 1);
                 break;
             case 1:
                 col = new Color(1, 0, 0);
@@ -240,7 +241,7 @@ public class Town : MonoBehaviour
                     else
                         Up_MaxHealth_Level();
                     ColorSystem(CheckColor, ref color);
-                    Stats.GG_MaxHealth -= 30;
+                    Stats.GG_MaxHealth -= 100;
                     Stats.GG_Experience += Up_Cost;
                 }
 
@@ -314,6 +315,7 @@ public class Town : MonoBehaviour
                     Stats.GG_SUP_DMG -= 1;
                     Stats.GG_Experience += Up_Cost;
                 }
+                ColorSystem(Shop_Level, ref color);
                 Stats.GG_Experience -= 100000;
                 check = false;
             }

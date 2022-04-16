@@ -1898,6 +1898,10 @@ PrefabInstance:
       value: 0.024
       objectReference: {fileID: 0}
     - target: {fileID: 649717652737063106, guid: a678c15e2aa656b459db8bdb04ea23e2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1848960801926120213, guid: 897083425d82d484bb5cc179f2115ec2, type: 3}
+    - target: {fileID: 649717652737063106, guid: a678c15e2aa656b459db8bdb04ea23e2, type: 3}
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
@@ -1993,6 +1997,11 @@ GameObject:
 --- !u!1 &1106774016 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 649717652741184552, guid: a678c15e2aa656b459db8bdb04ea23e2, type: 3}
+  m_PrefabInstance: {fileID: 1106774012}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1106774017 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 649717652750742646, guid: a678c15e2aa656b459db8bdb04ea23e2, type: 3}
   m_PrefabInstance: {fileID: 1106774012}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1142359736
@@ -2463,6 +2472,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff029108001fcd43abb82d11f9ec6ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  saveLoadSystem: {fileID: 0}
+  HPBar: {fileID: 1106774017}
   TownScriptsObj: {fileID: 1289614578}
   leftCornBar: {fileID: 1106774016}
   rightCornBar: {fileID: 1106774015}

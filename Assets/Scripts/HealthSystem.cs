@@ -4,6 +4,8 @@ using UnityEngine;
 using System;
 public class HealthSystem : MonoBehaviour
 {
+    public SaveLoadSystem saveLoadSystem = null;
+    public GameObject HPBar;
     public GameObject TownScriptsObj;
     public GameObject leftCornBar;
     public GameObject rightCornBar;
@@ -20,6 +22,7 @@ public class HealthSystem : MonoBehaviour
 
     void Start()
     {
+        saveLoadSystem.LoadGame();
         town = TownScriptsObj.GetComponent<Town>();
         town.ColorSystem(0, ref color);
         posX = leftCornBar.GetComponent<Transform>().position.x;
@@ -41,6 +44,7 @@ public class HealthSystem : MonoBehaviour
             Vector3 a = new Vector3(posX, leftCornBar.transform.position.y, leftCornBar.transform.position.z);
             GameObject clonedMid = Instantiate(midCornBar);
             clonedMid.transform.position = a;
+            clonedMid.transform.parent = HPBar.transform;
 
         }
         posX += offset;
@@ -65,7 +69,7 @@ public class HealthSystem : MonoBehaviour
             
             if (c >= 10)
             {
-                town.ColorSystem(6, ref color);
+                town.ColorSystem(++l, ref color);
                 healthParticle.GetComponent<SpriteRenderer>().sortingOrder++;
                 c = 0;
             }
@@ -73,6 +77,7 @@ public class HealthSystem : MonoBehaviour
             particles[i] = Instantiate(healthParticle);
             particles[i].GetComponent<SpriteRenderer>().color = color;
             particles[i].transform.position = new Vector3(positions[i % 10], leftCornBar.transform.position.y, leftCornBar.transform.position.z);
+            particles[i].transform.parent = HPBar.transform;
 
         }
     }
