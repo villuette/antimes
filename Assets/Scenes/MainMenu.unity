@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 15911128}
   - component: {fileID: 15911127}
-  - component: {fileID: 15911129}
   - component: {fileID: 15911126}
   m_Layer: 0
   m_Name: Main Camera
@@ -208,18 +207,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &15911129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 15911125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c16b1558930b8864f8b45d2d9a76e55e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &33958242
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,6 +283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 52713504}
   - component: {fileID: 52713503}
+  - component: {fileID: 52713506}
   m_Layer: 0
   m_Name: SceneSwap
   m_TagString: Untagged
@@ -315,6 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 080a97a2e567f924792cb82d46d2f36a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  saveLoadSystem: {fileID: 52713506}
 --- !u!4 &52713504
 Transform:
   m_ObjectHideFlags: 0
@@ -329,6 +318,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &52713506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52713502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c16b1558930b8864f8b45d2d9a76e55e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &426913299
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,7 +492,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 15911129}
+      - m_Target: {fileID: 52713506}
         m_TargetAssemblyTypeName: SaveLoadSystem, Assembly-CSharp
         m_MethodName: DeleteSave
         m_Mode: 1
@@ -737,7 +738,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 15911129}
+      - m_Target: {fileID: 52713506}
         m_TargetAssemblyTypeName: SaveLoadSystem, Assembly-CSharp
         m_MethodName: LoadGame
         m_Mode: 1

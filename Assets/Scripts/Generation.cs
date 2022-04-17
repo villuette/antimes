@@ -1,154 +1,96 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using System;
+using System;
 using System.Linq;
 
 
 public class Generation : MonoBehaviour
-{ 
-    public GameObject character, earth, leftCornerEarth, rightCornerEarth, ladder;
-    public float platLength;
-    public BoxCollider2D col;
+{
+    public GameObject character, earth, leftCornerEarth, rightCornerEarth, ladder, enemy, chest;
+    public BoxCollider2D platCollider;
+    SpriteRenderer earthProps, ladderProps;
 
-    public float deltaY = 1.44f;
-    public int platformQuantity; 
-    SpriteRenderer sr;
+    public float deltaY;
+    public int platformQuantity;
 
-    float previousPlatX_lower, previousPlatHalf_lower, previousPlatY_lower, previousLadderY_lower;
-    float  previousPlatX_upper, previousPlatHalf_upper, previousPlatY_upper, previousLadderY_upper;
-      
     float previousPlatY, previousLadderY, previousPlatX, previousPlatHalf;
+
+    float previousPlatX_lower, previousPlatHalf_lower, previousPlatY_lower;
+    float previousPlatX_upper, previousPlatHalf_upper, previousPlatY_upper;
+
+    float destPlatX_lower, destPlatHalf_lower, destPlatY_lower;
+    float destPlatX_upper, destPlatHalf_upper, destPlatY_upper;
 
     float upperTrigger, lowerTrigger;
 
-    //private void Start()
-    //{
-    //    platLength = Random.Range(5, 40) * 0.32f;
-    //    for (int i = 0; i <= 1; i++)
-    //    {
-    //        if (i == 0)
-    //        {
-    //            sr = earth.gameObject.GetComponent<SpriteRenderer>();
-    //            sr.size = new Vector2(platLength, sr.size.y);
-
-    //            col = earth.gameObject.GetComponent<BoxCollider2D>();
-    //            col.size = new Vector2(sr.size.x + 0.61f, col.size.y);
-
-    //            earth.transform.position = new Vector2(0.0f, 0.0f);
-
-    //            leftCornerEarth.transform.position = new Vector2(earth.transform.position.x - (platLength / 2.0f) - 0.16f, earth.transform.position.y);
-    //            rightCornerEarth.transform.position = new Vector2(earth.transform.position.x + (platLength / 2.0f) + 0.16f, earth.transform.position.y);
-
-    //            previousPlatX_lower = earth.transform.position.x;
-    //            previousPlatHalf_lower = platLength / 2.0f;
-    //            previousPlatY_lower = earth.transform.position.y;
-    //        }
-    //        if (i == 1)
-    //        {
-    //            GameObject platClone = Instantiate(earth);
-    //            GameObject leftCornerClone = Instantiate(leftCornerEarth);
-    //            GameObject rightCornerClone = Instantiate(rightCornerEarth);
-
-    //            sr = platClone.gameObject.GetComponent<SpriteRenderer>();
-    //            sr.size = new Vector2(platLength, sr.size.y);
-
-    //            col = platClone.gameObject.GetComponent<BoxCollider2D>();
-    //            col.size = new Vector2(sr.size.x + 0.61f, col.size.y); ;
-
-    //            platClone.transform.position = new Vector2(0.0f, previousPlatY_lower + deltaY);
-
-    //            leftCornerClone.transform.position = new Vector2(platClone.transform.position.x - (platLength / 2.0f) - 0.16f, platClone.transform.position.y);
-    //            rightCornerClone.transform.position = new Vector2(platClone.transform.position.x + (platLength / 2.0f) + 0.16f, platClone.transform.position.y);
-
-    //            ladder.transform.position = new Vector2(Random.Range(platClone.transform.position.x - (platLength / 2.0f), platClone.transform.position.x + (platLength / 2.0f)), platClone.transform.position.y - 0.64f);
-
-    //            previousPlatX_upper = platClone.transform.position.x;
-    //            previousPlatHalf_upper = platLength / 2.0f;
-    //            previousPlatY_upper = platClone.transform.position.y;
-    //            previousLadderY_upper = ladder.transform.position.y;
-    //            previousLadderY_lower = ladder.transform.position.y;
-    //        }
-    //    }
-    //    upperTrigger = previousPlatY_upper + deltaY * (platformQuantity - 1);
-    //    lowerTrigger = previousPlatY_lower - deltaY * (platformQuantity - 1);
-
-    //    generateUpperChunk(deltaY, previousPlatX_upper, previousPlatHalf_upper, previousPlatY_upper, previousLadderY_upper);
-    //    generateLowerChunk(deltaY, previousPlatX_lower, previousPlatHalf_lower, previousPlatY_lower, previousLadderY_lower);
-    //}
-
-
     private void Start()
     {
-        platLength = Random.Range(5, 40) * 0.32f;
-        sr = earth.gameObject.GetComponent<SpriteRenderer>();
-        sr.size = new Vector2(platLength, sr.size.y);
+        float platLength = UnityEngine.Random.Range(5, 40) * 0.32f;
+        earthProps = earth.gameObject.GetComponent<SpriteRenderer>();
+        earthProps.size = new Vector2(platLength, earthProps.size.y);
 
-        col = earth.gameObject.GetComponent<BoxCollider2D>();
-        col.size = new Vector2(sr.size.x + 0.61f, col.size.y);
+        platCollider = earth.gameObject.GetComponent<BoxCollider2D>();
+        platCollider.size = new Vector2(earthProps.size.x + 0.61f, platCollider.size.y);
 
         earth.transform.position = new Vector2(0.0f, 0.0f);
-
         leftCornerEarth.transform.position = new Vector2(earth.transform.position.x - (platLength / 2.0f) - 0.16f, earth.transform.position.y);
         rightCornerEarth.transform.position = new Vector2(earth.transform.position.x + (platLength / 2.0f) + 0.16f, earth.transform.position.y);
 
+        previousPlatX = earth.transform.position.x;
+        previousPlatHalf = platLength / 2.0f;
+        previousPlatY = earth.transform.position.y;
 
-        previousPlatX_lower = earth.transform.position.x;
-        previousPlatHalf_lower = platLength / 2.0f;
-        previousPlatY_lower = earth.transform.position.y;
-        previousLadderY_lower = 0.64f + 0.12f;
+        upperTrigger = previousPlatY + deltaY * (platformQuantity - 1);
+        lowerTrigger = previousPlatY - deltaY * (platformQuantity - 1);
 
-        previousPlatX_upper = earth.transform.position.x;
-        previousPlatHalf_upper = platLength / 2.0f;
-        previousPlatY_upper = earth.transform.position.y;
-        previousLadderY_upper = -0.64f;
-
-        upperTrigger = previousPlatY_upper + deltaY * (platformQuantity - 1);
-        lowerTrigger = previousPlatY_lower - deltaY * (platformQuantity - 1);
-
-        generateUpperChunk(deltaY, previousPlatX_upper, previousPlatHalf_upper, previousPlatY_upper, previousLadderY_upper);
-        generateLowerChunk(deltaY, previousPlatX_lower, previousPlatHalf_lower, previousPlatY_lower, previousLadderY_lower);
-
+        generateChunk(deltaY, previousPlatX, previousPlatHalf, previousPlatY, ref destPlatX_upper, ref destPlatHalf_upper, ref destPlatY_upper);
+        generateChunk(-deltaY, previousPlatX, previousPlatHalf, previousPlatY, ref destPlatX_lower, ref destPlatHalf_lower, ref destPlatY_lower);
     }
 
     private void FixedUpdate()
     {
         if (character.transform.position.y > upperTrigger)
         {
-            upperTrigger = previousPlatY_upper + deltaY * (platformQuantity - 1);
-            generateUpperChunk(deltaY, previousPlatX_upper, previousPlatHalf_upper, previousPlatY_upper, previousLadderY_upper);
+            generateChunk(deltaY, destPlatX_upper, destPlatHalf_upper, destPlatY_upper, ref previousPlatX_upper, ref previousPlatHalf_upper, ref previousPlatY_upper);
+            generateChunk(deltaY, previousPlatX_upper, previousPlatHalf_upper, previousPlatY_upper, ref destPlatX_upper, ref destPlatHalf_upper, ref destPlatY_upper);
+            upperTrigger = destPlatY_upper - deltaY;
+
         }
         else if (character.transform.position.y < lowerTrigger)
         {
-            lowerTrigger = previousPlatY_lower - deltaY * (platformQuantity - 1);
-            generateLowerChunk(deltaY, previousPlatX_lower, previousPlatHalf_lower, previousPlatY_lower, previousLadderY_lower);
+            generateChunk(-deltaY, destPlatX_lower, destPlatHalf_lower, destPlatY_lower, ref previousPlatX_lower, ref previousPlatHalf_lower, ref previousPlatY_lower);
+            generateChunk(-deltaY, previousPlatX_lower, previousPlatHalf_lower, previousPlatY_lower, ref destPlatX_lower, ref destPlatHalf_lower, ref destPlatY_lower);
+            lowerTrigger = destPlatY_lower + deltaY;
         }
     }
 
-    void generateUpperChunk(float deltaY, float previousPlatX, float previousPlatHalf, float previousPlatY, float previousLadderY)
+    void generateChunk(float deltaY, float previousPlatX, float previousPlatHalf, float previousPlatY, ref float destX, ref float destHalf, ref float destY)
     {
         for (int i = 1; i <= platformQuantity; i++)
         {
             GameObject platClone = Instantiate(earth);
             GameObject ladderClone = Instantiate(ladder);
             GameObject leftCornerClone = Instantiate(leftCornerEarth);
-            GameObject rightCornerClone = Instantiate(rightCornerEarth);
+            GameObject rightCornerClone = Instantiate(rightCornerEarth); 
 
-            platLength = Random.Range(5, 40) * 0.32f;
-            sr = platClone.gameObject.GetComponent<SpriteRenderer>();
-            sr.size = new Vector2(platLength, sr.size.y);
+            ladderProps = ladderClone.gameObject.GetComponent<SpriteRenderer>();
+            ladderProps.size = new Vector2(ladderProps.size.x, deltaY);
 
-            col = platClone.gameObject.GetComponent<BoxCollider2D>(); 
-            col.size = new Vector2(sr.size.x + 0.61f, col.size.y); ;
+            float platLength = UnityEngine.Random.Range(5, 40) * 0.32f;
+            earthProps = platClone.gameObject.GetComponent<SpriteRenderer>();
+            earthProps.size = new Vector2(platLength, earthProps.size.y);
 
-            platClone.transform.position = new Vector2(Random.Range(previousPlatX - platLength / 2.0f + 0.28f, previousPlatX + platLength / 2.0f - 0.28f), previousPlatY + deltaY);
+            platCollider = platClone.gameObject.GetComponent<BoxCollider2D>();
+            platCollider.size = new Vector2(earthProps.size.x + 0.61f, platCollider.size.y); ;
 
+            platClone.transform.position = new Vector2(UnityEngine.Random.Range(previousPlatX - platLength / 2.0f + 0.28f, previousPlatX + platLength / 2.0f - 0.28f), previousPlatY + deltaY);
             leftCornerClone.transform.position = new Vector3(platClone.transform.position.x - (platLength / 2.0f) - 0.16f, previousPlatY + deltaY);
             rightCornerClone.transform.position = new Vector3(platClone.transform.position.x + (platLength / 2.0f) + 0.16f, previousPlatY + deltaY);
- 
+
             float firstPoint = 0.0f, lastPoint = 0.0f;
             float platPosition = platClone.transform.position.x;
- 
+
             if (previousPlatX < platPosition)
             {
                 if (previousPlatX - previousPlatHalf < platPosition - platLength / 2.0f && previousPlatX + previousPlatHalf < platPosition + platLength / 2.0f)
@@ -166,7 +108,6 @@ public class Generation : MonoBehaviour
                     firstPoint = previousPlatX - previousPlatHalf;
                     lastPoint = previousPlatX + previousPlatHalf;
                 }
-
             }
             else if (previousPlatX > platPosition)
             {
@@ -186,98 +127,76 @@ public class Generation : MonoBehaviour
                     lastPoint = platPosition + platLength / 2.0f;
                 }
             }
-            ladderClone.transform.position = new Vector2(Random.Range(firstPoint, lastPoint), previousLadderY + deltaY);
+            float ladderPos = UnityEngine.Random.Range(firstPoint, lastPoint) * 100;
+            int ladderPosInt = (int)ladderPos - (int)ladderPos % 32;
+            ladderPos = (float)ladderPosInt / 100.0f;
+            ladderClone.transform.position = new Vector2(ladderPos, (previousPlatY + platClone.transform.position.y) / 2.0f + earthProps.size.y / 2.0f);
 
+            int k = 0;
+            bool[] isFree = new bool[(int)(Math.Ceiling(platLength / 0.32f)) + 1];
+            float[] poss = new float[(int)(Math.Ceiling(platLength / 0.32f)) + 1];
+          
+            for (float j = platPosition - platLength / 2.0f; j < platPosition + platLength / 2.0f; j += 0.32f, k++)
+            {
+                poss[k] = j;
+                if (Math.Abs(ladderClone.transform.position.x - j) < 0.01)
+                {
+                    isFree[k] = false;
+                }
+                else
+                {
+                    isFree[k] = true;
+                }
+            }
+
+            bool firstPropGenerated = false;
+
+            generateUsingOdds(enemy, platClone, ref firstPropGenerated, 0.5f, ref isFree, poss, platLength);
+            if (firstPropGenerated == true && platLength > 9 * 0.32f)
+            {
+                generateUsingOdds(enemy, platClone, ref firstPropGenerated, 0.9f, ref isFree, poss, platLength);
+            }
+
+            generateUsingOdds(chest, platClone, ref firstPropGenerated, 0.97f, ref isFree, poss, platLength);
+ 
             previousPlatX = platPosition;
             previousPlatHalf = platLength / 2.0f;
             previousPlatY = platClone.transform.position.y;
-            previousLadderY = ladderClone.transform.position.y;
-           
+
             if (i == platformQuantity)
             {
-                previousPlatX_upper = platPosition;
-                previousPlatHalf_upper = platLength / 2.0f;
-                previousPlatY_upper = platClone.transform.position.y;
-                previousLadderY_upper = ladderClone.transform.position.y;
+                destX = platPosition;
+                destHalf = platLength / 2.0f;
+                destY = platClone.transform.position.y;
             }
         }
     }
 
-    void generateLowerChunk(float deltaY, float previousPlatX, float previousPlatHalf, float previousPlatY, float previousLadderY)
+    void generateUsingOdds(GameObject obj, GameObject earth, ref bool success, float odds, ref bool[] CheckIsFree, float[] positions, float platLength)
     {
-        for (int i = 1; i <= platformQuantity; i++)
+        if (UnityEngine.Random.Range(0f, 1f) > odds)
         {
-            GameObject platClone = Instantiate(earth);
-            GameObject ladderClone = Instantiate(ladder);
-            GameObject leftCornerClone = Instantiate(leftCornerEarth);
-            GameObject rightCornerClone = Instantiate(rightCornerEarth);
-
-            platLength = Random.Range(5, 40) * 0.32f;
-            sr = platClone.gameObject.GetComponent<SpriteRenderer>();
-            sr.size = new Vector2(platLength, sr.size.y);
-
-            col = platClone.gameObject.GetComponent<BoxCollider2D>(); 
-            col.size = new Vector2(sr.size.x + 0.61f, col.size.y); ;
-
-            platClone.transform.position = new Vector2(Random.Range(previousPlatX - platLength / 2.0f + 0.28f, previousPlatX + platLength / 2.0f - 0.28f), previousPlatY - deltaY);
-
-            leftCornerClone.transform.position = new Vector3(platClone.transform.position.x - (platLength / 2.0f) - 0.16f, previousPlatY - deltaY);
-            rightCornerClone.transform.position = new Vector3(platClone.transform.position.x + (platLength / 2.0f) + 0.16f, previousPlatY - deltaY);
-
-            float firstPoint = 0.0f, lastPoint = 0.0f;
-            float platPosition = platClone.transform.position.x;
-
-            if (previousPlatX < platPosition)
+            while (true)
             {
-                if (previousPlatX - previousPlatHalf < platPosition - platLength / 2.0f && previousPlatX + previousPlatHalf < platPosition + platLength / 2.0f)
+                int thePropPos = UnityEngine.Random.Range(0, (int)(platLength / 0.32f));
+                if (CheckIsFree[thePropPos])
                 {
-                    firstPoint = platPosition - platLength / 2.0f;
-                    lastPoint = previousPlatX + previousPlatHalf;
+                    GameObject propClone = Instantiate(obj);
+                    propClone.transform.position = new Vector2(positions[thePropPos], earth.transform.position.y + 0.32f);
+                    CheckIsFree[thePropPos] = false;
+                    if (thePropPos < (int)(Math.Ceiling(platLength / 0.32f)) + 1)
+                    {
+                        CheckIsFree[thePropPos++] = false;
+                    }
+                    if (thePropPos > 0)
+                    {
+                        CheckIsFree[thePropPos--] = false;
+                    }
+                    success = true;
+                    break;
                 }
-                else if (previousPlatX - previousPlatHalf < platPosition - platLength / 2.0f && previousPlatX + previousPlatHalf > platPosition + platLength / 2.0f)
-                {
-                    firstPoint = platPosition - platLength / 2.0f;
-                    lastPoint = platPosition + platLength / 2.0f;
-                }
-                else if (previousPlatX - previousPlatHalf > platPosition - platLength / 2.0f)
-                {
-                    firstPoint = previousPlatX - previousPlatHalf;
-                    lastPoint = previousPlatX + previousPlatHalf;
-                }
-
-            }
-            else if (previousPlatX > platPosition)
-            {
-                if (previousPlatX - previousPlatHalf < platPosition - platLength / 2.0f)
-                {
-                    firstPoint = platPosition - platLength / 2.0f;
-                    lastPoint = platPosition + platLength / 2.0f;
-                }
-                else if (previousPlatX - previousPlatHalf > platPosition - platLength / 2.0f && previousPlatX + previousPlatHalf < platPosition + platLength / 2.0f)
-                {
-                    firstPoint = previousPlatX - previousPlatHalf;
-                    lastPoint = previousPlatX + previousPlatHalf;
-                }
-                else if (previousPlatX - previousPlatHalf > platPosition - platLength / 2.0f && previousPlatX + previousPlatHalf > platPosition + platLength / 2.0f)
-                {
-                    firstPoint = previousPlatX - previousPlatHalf;
-                    lastPoint = platPosition + platLength / 2.0f;
-                }
-            }
-            ladderClone.transform.position = new Vector2(Random.Range(firstPoint, lastPoint), previousLadderY - deltaY);
-
-            previousPlatX = platPosition;
-            previousPlatHalf = platLength / 2.0f;
-            previousPlatY = platClone.transform.position.y;
-            previousLadderY = ladderClone.transform.position.y;
-
-            if (i == platformQuantity)
-            {
-                previousPlatX_lower = platPosition;
-                previousPlatHalf_lower = platLength / 2.0f;
-                previousPlatY_lower = platClone.transform.position.y;
-                previousLadderY_lower = ladderClone.transform.position.y;
             }
         }
-    } 
+    }
+    
 }

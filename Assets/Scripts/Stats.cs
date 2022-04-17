@@ -18,6 +18,13 @@ public class Stats : MonoBehaviour
     public static float GG_SUP_DMG;
     public static int GG_SUP_Manacost;
     public static int Enemy_Damage;
+    public static int MaxHealth_Level = 0;
+    public static int Damage_Level = 0;
+    public static int Armor_Level = 0;
+    public static int CRIT_Level = 0;
+    public static int SUP_Level = 0;
+    public static int Shop_Level = 0;
+    public static int Max_Level = 5;
     public void lowHP()
     {
         GG_Health -= 1;

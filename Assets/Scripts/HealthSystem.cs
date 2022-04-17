@@ -13,13 +13,13 @@ public class HealthSystem : MonoBehaviour
     GameObject[] particles;
     public int numOfBlocks;
     Town town;
-    Color color = Color.white;
+    Color color = Color.red;
     float posX;
     float offset;
     public float[] positions;
     int maximal;
 
-    void Start()
+    public void Start()
     {
         town = TownScriptsObj.GetComponent<Town>();
         town.ColorSystem(0, ref color);
@@ -28,6 +28,16 @@ public class HealthSystem : MonoBehaviour
         RendHPbar();
         ShowHP();
     }
+    public void InstanceHP()
+    {
+        town = TownScriptsObj.GetComponent<Town>();
+        town.ColorSystem(0, ref color);
+        posX = leftCornBar.GetComponent<Transform>().position.x;
+        offset = (float)Math.Round(midCornBar.GetComponent<SpriteRenderer>().size.x / 2, 2);
+        RendHPbar();
+        ShowHP();
+    }
+    
     public void RendHPbar()
     {
         maximal = Stats.GG_MaxHealth/ 100;
