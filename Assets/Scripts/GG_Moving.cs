@@ -22,7 +22,7 @@ public class GG_Moving : MonoBehaviour
     void Start()
     {
 
-        ggcol = GetComponent<Collider2D>();
+        ggcol = GetComponent<Collider2D>();        
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         transform.position = gameObject.transform.position;

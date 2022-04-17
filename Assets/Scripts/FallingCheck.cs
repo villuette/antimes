@@ -36,8 +36,8 @@ public class FallingCheck : MonoBehaviour
             Debug.Log("GG: " + Stats.GG_Health);
             if (Stats.GG_Health <= 0)
             {
-                //Destroy(GameObject.Find("GG"));
-                Debug.Log("Flyin' dead");
+                 Debug.Log("Flyin' dead");
+
             }
         }
     }

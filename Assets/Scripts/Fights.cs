@@ -23,7 +23,8 @@ public class Fights : MonoBehaviour
     GameObject gg_obj;
     bool dead = false;
     public float margin = 0.4f;
-
+    float dealt_offset = 0.1f;
+    
     void Start()
     {
         Stats_Enemy enemy = gameObject.AddComponent<Stats_Enemy>();
@@ -47,10 +48,12 @@ public class Fights : MonoBehaviour
         if (gg_obj.transform.position.x < transform.position.x)
         {
             gg_obj.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            dealt_offset = Math.Abs(dealt_offset) * -1;
         }
         else
         {
             gg_obj.transform.localRotation = Quaternion.Euler(0, 180, 0);
+            dealt_offset = Math.Abs(dealt_offset);
         }
     }
     void DealedDMGShow()
@@ -69,7 +72,7 @@ public class Fights : MonoBehaviour
                     currTime += Time.deltaTime;
                     coord_x = (transform.position.x + Stats.GG.transform.position.x) / 2.0f;
                     coord_y = transform.position.y + scale;
-                    dealed_dmg.transform.position = new Vector2(coord_x - 0.1f, coord_y);
+                    dealed_dmg.transform.position = new Vector2(coord_x - dealt_offset, coord_y);
                     scale += 0.01f;
                 }
                 else
@@ -93,7 +96,7 @@ public class Fights : MonoBehaviour
                 currTime += Time.deltaTime;
                 coord_x = (transform.position.x + Stats.GG.transform.position.x) / 2.0f;
                 coord_y = transform.position.y + scale;
-                dealed_dmg.transform.position = new Vector2(coord_x + 0.1f, coord_y);
+                dealed_dmg.transform.position = new Vector2(coord_x + dealt_offset, coord_y);
                 scale += 0.01f;
             }
             else
