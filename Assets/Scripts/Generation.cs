@@ -36,7 +36,7 @@ public class Generation : MonoBehaviour
         latestDownPoss = poss;
 
         goFirstTime = true;
-        float platLength = UnityEngine.Random.Range(30, 30) * 0.32f;//resizing platform
+        float platLength = UnityEngine.Random.Range(50, 50) * 0.32f;//resizing platform (первая чет совсем капризная)
 
         earthSR = earth.gameObject.GetComponent<SpriteRenderer>();
         earthSR.size = new Vector2(platLength, earthSR.size.y); //resize sprite
@@ -122,7 +122,7 @@ public class Generation : MonoBehaviour
             }
             else
             {
-                if(latestPerfectDown != 0)
+                if (latestPerfectDown != 0)
                 {
                     PerfectPlatSize = latestPerfectDown;
                     isFree = new bool[latestPerfectDown];
@@ -138,7 +138,7 @@ public class Generation : MonoBehaviour
             }
 
             platClone = Instantiate(earth);
-            ladderClone = Instantiate(ladder);
+            ladderClone = Instantiate(ladder); ladderClone.SetActive(true);
             leftCornerClone = Instantiate(leftCornerEarth);
             rightCornerClone = Instantiate(rightCornerEarth); //re-refs to new objects
 
@@ -219,7 +219,7 @@ public class Generation : MonoBehaviour
 
                     isFree[p] = false;
                     if (p > 0)
-                       isFree[p - 1] = false;
+                        isFree[p - 1] = false;
                     if (p < PerfectPlatSize)
                         isFree[p + 1] = false;
                     goto laddergenskip;
@@ -244,7 +244,7 @@ public class Generation : MonoBehaviour
             isFree = new bool[PerfectPlatSize];
             poss = new float[PerfectPlatSize];
 
-            for (int j = platPositionInt - platHalfInt, k= 0; j <= platPositionInt + platHalfInt; j += 32, k++)
+            for (int j = platPositionInt - platHalfInt, k = 0; j <= platPositionInt + platHalfInt; j += 32, k++)
             {
                 poss[k] = j / 100.0f;
                 isFree[k] = true;
@@ -311,6 +311,7 @@ public class Generation : MonoBehaviour
                 if (isFree[thePropPos])
                 {
                     GameObject objClone = Instantiate(obj);
+                    objClone.SetActive(true);
                     objClone.transform.position = new Vector2(poss[thePropPos], earth.transform.position.y + 0.32f);
                     isFree[thePropPos] = false;
                     if (thePropPos < ArrSize - 1)

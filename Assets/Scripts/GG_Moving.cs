@@ -29,7 +29,7 @@ public class GG_Moving : MonoBehaviour
         canMove = true;
         speedOnLadder = 1;
         originGravity = rb.gravityScale;
-        currLadderPos = GameObject.FindGameObjectWithTag("ladder");
+        currLadderPos = null;//GameObject.FindGameObjectWithTag("ladder");
     }
     void upDownCheck(GameObject ladder)
     {
@@ -83,6 +83,7 @@ public class GG_Moving : MonoBehaviour
             canMove = true;
             anim.SetBool("is_laddering", false);
             CanDoLaddering = true;
+            if(currLadderPos!=null)
             upDownCheck(currLadderPos);
         }
     }

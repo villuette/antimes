@@ -52,7 +52,8 @@ public class forDownLadderScr : MonoBehaviour
             //scr for money up////
             coinsTime = 0;
             earnedMoney = UnityEngine.Random.Range(minMoneyEarned, maxMoneyEarned);
-            Stats.GG_CurrGold += earnedMoney;
+            Stats.GG_UGold += earnedMoney;
+            Stats.ShowCoins();
             chestcol = collision.GetComponent<BoxCollider2D>();
             collision.gameObject.GetComponent<Animator>().enabled = true;
             collision.enabled = false;
@@ -73,7 +74,8 @@ public class forDownLadderScr : MonoBehaviour
         {
             coinsTime = 0;
             earnedMoney = UnityEngine.Random.Range(minMoneyEarned, maxMoneyEarned) * 10;
-            Stats.GG_CurrGold += earnedMoney;
+            Stats.GG_UGold += earnedMoney;
+            Stats.ShowCoins();
             chestcol = collision.GetComponent<BoxCollider2D>();
             collision.gameObject.GetComponent<Animator>().enabled = true;
             collision.enabled = false;

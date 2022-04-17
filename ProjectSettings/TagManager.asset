@@ -5,11 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - ladder
-  - Enemy
   - ground
-  - wchest
-  - gchest
-  - coin
+  - hplogic
   layers:
   - Default
   - TransparentFX
@@ -19,9 +16,9 @@ TagManager:
   - UI
   - platform
   - gg
+  - ladder
   - 
-  - 
-  - 
+  - grass
   - 
   - 
   - 

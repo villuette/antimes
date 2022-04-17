@@ -7,6 +7,11 @@ public class FallingCheck : MonoBehaviour
     bool fly = false;
     [SerializeField] private float flyTime = 0.0f;
     public float deadFlyTime = 4f;
+    HealthSystem healthSystem;
+    private void Start()
+    {
+        healthSystem = GameObject.Find("HPLogic").GetComponent<HealthSystem>();
+    }
 
     private void FixedUpdate()
     {
@@ -30,13 +35,15 @@ public class FallingCheck : MonoBehaviour
         {
             fly = false;
         }
-        if(collision.CompareTag("ground") && GG_Moving.rb.velocity.y < -4)
+        if (collision.CompareTag("ground") && GG_Moving.rb.velocity.y < -4)
         {
             Stats.GG_Health -= (int)((1 - Stats.GG_Armor) * (GG_Moving.rb.velocity.y * (-20)));
+            healthSystem.InstanceHP();
             Debug.Log("GG: " + Stats.GG_Health);
             if (Stats.GG_Health <= 0)
             {
-                 Debug.Log("Flyin' dead");
+                Debug.Log("Flyin' dead");
+                Stats.GG_Death();
 
             }
         }

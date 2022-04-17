@@ -9,5 +9,6 @@ public class Gen_Coins : MonoBehaviour
     public void CreateCoin()
     {
         generated_coins = Instantiate(obj_coins);
+        generated_coins.SetActive(true);
     }
 }

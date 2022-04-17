@@ -12,6 +12,14 @@ public class Fights : MonoBehaviour
     float FullTime = 2.0f, currTime = 0.0f;
     private float coord_x, coord_y, gg_coord_x;
     [SerializeField] private Text enemy_hp;
+    [SerializeField] private Text earnedExp;
+    bool showExp = false;
+    float currTimeE = 0.0f;
+    float FullTimeE = 3.0f;
+    float scaleE = 0.2f;
+    float invisabilityE = 0.0f;
+    int expPerMob;
+
     public static float _game_speed = 3;
     [SerializeField] private Text dealed_dmg;
     float scale = 0.2f;
@@ -24,9 +32,14 @@ public class Fights : MonoBehaviour
     bool dead = false;
     public float margin = 0.4f;
     float dealt_offset = 0.1f;
-    
+
+    HealthSystem healthSystem;
+
     void Start()
     {
+        healthSystem = GameObject.Find("HPLogic").GetComponent<HealthSystem>();
+        earnedExp.color = Color.green;
+        earnedExp = GameObject.Find("collectExp").GetComponent<Text>();
         Stats_Enemy enemy = gameObject.AddComponent<Stats_Enemy>();
         Enemy_Health = enemy.Enemy_Health;
         Enemy_Damage = enemy.Enemy_Damage;
@@ -37,14 +50,39 @@ public class Fights : MonoBehaviour
         anim_gg.speed = _game_speed / 2;
         anim_enemy.speed = _game_speed / 2;
     }
+    private void ShowExpEarned()
+    {         
+        
+        earnedExp.text = Convert.ToString(expPerMob);
+        if (FullTimeE >= currTimeE)
+        {
+            earnedExp.color = new Color(0, 1, 0, 1 - invisabilityE);
+            if (invisabilityE < 1)
+                invisabilityE += 0.03f;
+            currTimeE += Time.deltaTime;
+            float coord_xE = Stats.GG.transform.position.x;
+            float coord_yE = Stats.GG.transform.position.y + scaleE;
+            earnedExp.transform.position = new Vector2(coord_xE, coord_yE);
+            scaleE += 0.01f;
+        }
+        else
+        {
+            earnedExp.text = null;
+            currTimeE = 0.0f;
+            scaleE = 0.2f;
+            showExp = false;
+            invisabilityE = 0.0f;
+        }
+    }
     private void FixedUpdate()
     {
         DealedDMGShow();
-
+        if (showExp)
+            ShowExpEarned();
     }
     void RotateGG()
     {
-        
+
         if (gg_obj.transform.position.x < transform.position.x)
         {
             gg_obj.transform.localRotation = Quaternion.Euler(0, 0, 0);
@@ -63,6 +101,7 @@ public class Fights : MonoBehaviour
             if (ispersonbeat)
             {
                 dealed_dmg.color = Color.white;
+                dealed_dmg.text = null;
                 dealed_dmg.text = "-" + Convert.ToString(dmg_dealt);
                 if (FullTime >= currTime)
                 {
@@ -87,6 +126,7 @@ public class Fights : MonoBehaviour
         }
         if (isenemybeat)
         {
+            dealed_dmg.text = null;
             dealed_dmg.text = "-" + Convert.ToString(dmg_dealt);
             if (FullTime >= currTime)
             {
@@ -123,14 +163,16 @@ public class Fights : MonoBehaviour
             EnemyRotate();
             RotateGG();
             GG_Moving.canMove = false;
-            collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);           
+            collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
             anim_gg.SetInteger("is_running", 0);
             if (collision.gameObject.transform.position.x < transform.position.x)
                 collision.gameObject.transform.position = new Vector3(transform.position.x - margin, transform.position.y);
             else
                 collision.gameObject.transform.position = new Vector3(transform.position.x + margin, transform.position.y);
+            anim_gg.SetBool("is_laddering", false); //if person contacts while laddering
+            anim_gg.SetTrigger("interrupts");              
             StartCoroutine(FightCoroutine());
-            anim_gg.SetInteger("is_running", 0);
+
 
         }
     }
@@ -177,7 +219,7 @@ public class Fights : MonoBehaviour
     }
     IEnumerator FightCoroutine()
     {
-        
+
         //GG_Moving.canMove = false;
         while (true)
         {
@@ -186,7 +228,6 @@ public class Fights : MonoBehaviour
                 Stats.GG_Death();
                 StopCoroutine("FightCoroutine");
                 GG_Moving.CanDoLaddering = true;
-                //GG_Moving.canMove = true;
                 break;
             }
             else //first the person, last the enemy
@@ -203,8 +244,8 @@ public class Fights : MonoBehaviour
                 }
                 anim_enemy.SetTrigger("interrupts");
                 anim_enemy.SetTrigger("is_enemy_hide");
-                
-                
+
+
 
             }
             Debug.Log("GG: " + Stats.GG_Health);
@@ -212,24 +253,28 @@ public class Fights : MonoBehaviour
 
             yield return new WaitForSeconds(1 / _game_speed);
 
-            dmg_dealt = Stats.GG_Damage; //damage, dealt to enemy
+            dmg_dealt = (int)UnityEngine.Random.Range(Stats.GG_Damage - Stats.GG_Damage/4f, Stats.GG_Damage + Stats.GG_Damage/4f); //damage, dealt to enemy
             ispersonbeat = true;
             isenemybeat = false;
             currTime = 0f;
             scale = 0.2f;
             invisability = 0.0f;
             show = true;
-            Enemy_Health -= Stats.GG_Damage;
+            Enemy_Health -= dmg_dealt; //deal damage
             ShowEnemyHp();
             if (Enemy_Health <= 0)
             {
+                expPerMob = UnityEngine.Random.Range(5, 20);
+                Stats.GG_UExperience += expPerMob;
+                Stats.ShowExp();
+                showExp = true;               
                 enemy_hp.text = null;
                 anim_gg.SetTrigger("interrupts");
-                anim_enemy.Play("enemy_death");             
+                anim_enemy.Play("enemy_death");
                 ispersonbeat = false; isenemybeat = false;
                 gameObject.GetComponent<BoxCollider2D>().enabled = false;
                 GG_Moving.CanDoLaddering = true;
-                GG_Moving.canMove = true;             
+                GG_Moving.canMove = true;
                 StopCoroutine(nameof(FightCoroutine));
                 Destroy(gameObject, 1f);
                 break;
@@ -247,6 +292,7 @@ public class Fights : MonoBehaviour
             dmg_dealt = (int)((1 - Stats.GG_Armor) * Enemy_Damage); //damage, dealt to gg
             isenemybeat = true;
             ispersonbeat = false;
+            healthSystem.InstanceHP(); //render hpbar after damage
             currTime = 0f;
             scale = 0.2f;
             invisability = 0.0f;

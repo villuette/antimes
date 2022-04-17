@@ -9,13 +9,16 @@ public class rendering : MonoBehaviour
     {
         
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.CompareTag("ground") || collision.CompareTag("Enemy"))
         collision.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        
     }
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnnTriggerExit2D(Collider2D collision)
     {
-        collision.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        if (collision.CompareTag("ground") || collision.CompareTag("Enemy"))
+            collision.gameObject.GetComponent<SpriteRenderer>().enabled = false;
     }
     // Update is called once per frame
     void Update()
