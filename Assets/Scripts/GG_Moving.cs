@@ -19,9 +19,10 @@ public class GG_Moving : MonoBehaviour
     public static bool CanDoLaddering = true;
     GameObject currLadderPos;
     float walkSpeed = 0;
+    HealthSystem healthSystem;
     void Start()
     {
-
+        healthSystem = GameObject.Find("HPLogic").GetComponent<HealthSystem>();
         ggcol = GetComponent<Collider2D>();        
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -90,7 +91,10 @@ public class GG_Moving : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-
+        if(collision.CompareTag("tablet") && doLaddering)
+        {
+            SceneSwap.Load_Town();
+        }
         if (collision.gameObject.tag == "ladder")
         {
             currLadderPos = collision.gameObject;
@@ -120,6 +124,14 @@ public class GG_Moving : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("heart"))
+        {
+            Stats.GG_Health += 100;
+            if (Stats.GG_Health > Stats.GG_MaxHealth)
+                Stats.GG_Health = Stats.GG_MaxHealth;
+            Destroy(collision.gameObject);
+            healthSystem.InstanceHP();
+        }
         if (collision.gameObject.tag == "ladder")
         {
             upDownCheck(collision.gameObject);

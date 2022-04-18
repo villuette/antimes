@@ -15,7 +15,7 @@ public class rendering : MonoBehaviour
         collision.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         
     }
-    private void OnnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("ground") || collision.CompareTag("Enemy"))
             collision.gameObject.GetComponent<SpriteRenderer>().enabled = false;

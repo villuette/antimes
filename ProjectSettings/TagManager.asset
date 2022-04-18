@@ -7,6 +7,12 @@ TagManager:
   - ladder
   - ground
   - hplogic
+  - wchest
+  - gchest
+  - Enemy
+  - coin
+  - tablet
+  - heart
   layers:
   - Default
   - TransparentFX

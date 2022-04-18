@@ -7,7 +7,7 @@ using System.Linq;
 
 public class Generation : MonoBehaviour
 {
-    public GameObject character, earth, leftCornerEarth, rightCornerEarth, ladder, enemy, gchest, wchest; //originals
+    public GameObject character, earth, leftCornerEarth, rightCornerEarth, ladder, enemy, gchest, wchest, tablet, heart; //originals
     GameObject platClone, ladderClone, leftCornerClone, rightCornerClone; //copies
 
     bool[] isFree, latestUpIsFree, latestDownIsFree;
@@ -36,7 +36,7 @@ public class Generation : MonoBehaviour
         latestDownPoss = poss;
 
         goFirstTime = true;
-        float platLength = UnityEngine.Random.Range(50, 50) * 0.32f;//resizing platform (первая чет совсем капризная)
+        float platLength = UnityEngine.Random.Range(10, 10) * 0.32f;//resizing platform (первая чет совсем капризная)
 
         earthSR = earth.gameObject.GetComponent<SpriteRenderer>();
         earthSR.size = new Vector2(platLength, earthSR.size.y); //resize sprite
@@ -145,7 +145,7 @@ public class Generation : MonoBehaviour
             ladderSR = ladderClone.gameObject.GetComponent<SpriteRenderer>(); //resizing ladder
             ladderSR.size = new Vector2(ladderSR.size.x, deltaY);
 
-            float platLength = UnityEngine.Random.Range(42, 42) * 0.32f;//resizing platform
+            float platLength = UnityEngine.Random.Range(37, 45) * 0.32f;//resizing platform
                                                                         //probably you had to self-answering - why is 15? 
                                                                         //bicoz at least halfsize of plat must be composed of 2 margins (ladder can be placed at max on the middle of intersection)
                                                                         // and include ladders widths. now i cant understand how the width going but it works...  my eng so darn but its ok coz i have done your work and you must suck my ass///
@@ -168,7 +168,7 @@ public class Generation : MonoBehaviour
 
 
             float firstPoint = Mathf.Max((previousPlatX - previousPlatHalf), (platPosition - platLength / 2.0f)); //takes intersection of both plats
-            float lastPoint = Mathf.Min((previousPlatX + previousPlatHalf), (platPosition + platLength / 2.0f)); //mummy there was so much strings so i replaced they to this ones (lukz good, right?)
+            float lastPoint = Mathf.Min((previousPlatX + previousPlatHalf), (platPosition + platLength / 2.0f)); //there was so much strings so i replaced they to this ones (lukz good, right?)
 
             if (goFirstTime && i == 1)////////////конструкция позволит сгенерировать две лестницы с отступом margin - в самом начале уровня/////////////////////////
             {
@@ -186,6 +186,7 @@ public class Generation : MonoBehaviour
                 {
                     float prevFirstPointc = ladderAbove - margin;
                     float prevLastPointc = ladderAbove + margin;
+
                     float ladderPosc = UnityEngine.Random.Range(firstPoint, lastPoint);
 
                     while (ladderPosc > prevFirstPointc && ladderPosc < prevLastPointc)
@@ -201,9 +202,19 @@ public class Generation : MonoBehaviour
             float prevFirstPoint = prevLadderPosX - margin; //common ladder generation
             float prevLastPoint = prevLadderPosX + margin;
             float ladderPos = UnityEngine.Random.Range(firstPoint, lastPoint);
-
-            while (ladderPos > prevFirstPoint && ladderPos < prevLastPoint) //holy shit it was so hard to realize meh......2 strings bro......
-                ladderPos = UnityEngine.Random.Range(firstPoint, lastPoint);//returns a place outside the margin of prev ladder ;)
+            if (firstPoint > prevFirstPoint)
+                ladderPos = UnityEngine.Random.Range(prevLastPoint, lastPoint);
+            if (lastPoint < prevLastPoint)
+                ladderPos = UnityEngine.Random.Range(firstPoint, prevFirstPoint);
+            if (firstPoint < prevFirstPoint && lastPoint > prevLastPoint)
+                if (UnityEngine.Random.Range(0f, 1f) < 0.5f)
+                    ladderPos = UnityEngine.Random.Range(prevLastPoint, lastPoint);
+                else
+                    ladderPos = UnityEngine.Random.Range(firstPoint, prevFirstPoint);
+            if (firstPoint > prevLastPoint || lastPoint < prevFirstPoint)
+                ladderPos = UnityEngine.Random.Range(firstPoint, lastPoint);
+            //while (ladderPos > prevFirstPoint && ladderPos < prevLastPoint) //holy shit it was so hard to realize meh......2 strings bro......
+            //    ladderPos = UnityEngine.Random.Range(firstPoint, lastPoint);//returns a place outside the margin of prev ladder ;)
 
             ladderPos *= 100;
             int ladderPosInt = (int)ladderPos - (int)ladderPos % 32; //танцы с бубном какиета (но вроде работает)
@@ -213,10 +224,10 @@ public class Generation : MonoBehaviour
             {
                 if (Mathf.Abs(poss[p] - ladderPos) < 0.1 && ((p > 0 && p < PerfectPlatSize - 1 && isFree[p - 1] && isFree[p] && isFree[p + 1])
                     || (p == 0 && isFree[p] && isFree[p + 1])
-                    || (p == PerfectPlatSize - 1 && isFree[p - 1] && isFree[p]))) //вот тут самое интересное, нужно чтобы ничего нигде не ломалось, но я не могу((((((((((
+                    || (p == PerfectPlatSize - 1 && isFree[p - 1] && isFree[p]))) //вот тут самое интересное, нужно чтобы ничего нигде не ломалось
                 {
                     ladderClone.transform.position = new Vector2(poss[p], (previousPlatY + platClone.transform.position.y) / 2.0f + earthSR.size.y / 2.0f);
-
+                    Debug.Log("HOLLY");
                     isFree[p] = false;
                     if (p > 0)
                         isFree[p - 1] = false;
@@ -250,80 +261,98 @@ public class Generation : MonoBehaviour
                 isFree[k] = true;
                 //Debug.Log(j / 100.0f);
 
-                if (Math.Abs(ladderClone.transform.position.x - j / 100.0f) < 0.1)
+                if (Math.Abs(ladderClone.transform.position.x - poss[k]) < 0.1)
                 {
+
                     isFree[k] = false;
-                    if (k > 0)
+                    if (k == 1)
+                    {
                         isFree[k - 1] = false;
+                    }
+                    if (k > 1)
+                    {
+                        isFree[k - 1] = false;
+                        isFree[k - 2] = false;
+                    }
                     if (k < PerfectPlatSize - 1)
                         isFree[k + 1] = false;
+                    if (k < PerfectPlatSize - 2)
+                    {
+                        isFree[k + 1] = false;
+                        isFree[k + 2] = false;
+                        //Debug.Log("UNBELIEVABLE!!!!!!!!!!!!!");
+                    }
                 }
 
             }
 
 
-            if (GenerateUsingOdds(enemy, platClone, 0.9f, PerfectPlatSize) && PerfectPlatSize > 20)
-            {
-                GenerateUsingOdds(enemy, platClone, 0.9f, PerfectPlatSize);
-            }
 
-            GenerateUsingOdds(wchest, platClone, 0.97f, PerfectPlatSize);
-            GenerateUsingOdds(gchest, platClone, 0.97f, PerfectPlatSize);
+            GenerateUsingOdds(enemy, platClone, 1f, PerfectPlatSize);
+            GenerateUsingOdds(enemy, platClone, 0.5f, PerfectPlatSize);
+            if (PerfectPlatSize > 41)
+                GenerateUsingOdds(enemy, platClone, 0.3f, PerfectPlatSize);
 
+                GenerateUsingOdds(wchest, platClone, 0.1f, PerfectPlatSize);
+                GenerateUsingOdds(gchest, platClone, 0.01f, PerfectPlatSize);
 
-            if (deltaY > 0) //saving lasts
-            {
-                latestUP_y = platClone.transform.position.y;
-                latestUP_x = platClone.transform.position.x;
-                latestUP_ladder = ladderClone.transform.position.x;
-                latestUP_half = platClone.GetComponent<SpriteRenderer>().size.x / 2.0f;
-                latestUpIsFree = new bool[PerfectPlatSize];
-                isFree.CopyTo(latestUpIsFree, 0);
-                latestUpPoss = new float[PerfectPlatSize];
-                poss.CopyTo(latestUpPoss, 0);
-                latestPerfectUp = PerfectPlatSize;
-            }
-            if (deltaY < 0)
-            {
-                latestDown_y = platClone.transform.position.y;
-                latestDown_x = platClone.transform.position.x;
-                latestDown_ladder = ladderClone.transform.position.x;
-                latestDown_half = platClone.GetComponent<SpriteRenderer>().size.x / 2.0f;
-                latestDownIsFree = new bool[PerfectPlatSize];
-                isFree.CopyTo(latestDownIsFree, 0);
-                latestDownPoss = new float[PerfectPlatSize];
-                poss.CopyTo(latestDownPoss, 0);
-                latestPerfectDown = PerfectPlatSize;
-            }
-            //GC.Collect();
+                GenerateUsingOdds(heart, platClone, 0.1f, PerfectPlatSize);
+                GenerateUsingOdds(tablet, platClone, 0.05f, PerfectPlatSize);
 
-        }
-
-    }
-
-    bool GenerateUsingOdds(GameObject obj, GameObject earth, float odds, int ArrSize)
-    {
-        if (UnityEngine.Random.Range(0f, 1f) < odds)
-        {
-            while (true)
-            {
-                int thePropPos = UnityEngine.Random.Range(0, ArrSize - 1);
-                if (isFree[thePropPos])
+                if (deltaY > 0) //saving lasts
                 {
-                    GameObject objClone = Instantiate(obj);
-                    objClone.SetActive(true);
-                    objClone.transform.position = new Vector2(poss[thePropPos], earth.transform.position.y + 0.32f);
-                    isFree[thePropPos] = false;
-                    if (thePropPos < ArrSize - 1)
-                        isFree[thePropPos + 1] = false;
-                    if (thePropPos > 0)
-                        isFree[thePropPos - 1] = false;
+                    latestUP_y = platClone.transform.position.y;
+                    latestUP_x = platClone.transform.position.x;
+                    latestUP_ladder = ladderClone.transform.position.x;
+                    latestUP_half = platClone.GetComponent<SpriteRenderer>().size.x / 2.0f;
+                    latestUpIsFree = new bool[PerfectPlatSize];
+                    isFree.CopyTo(latestUpIsFree, 0);
+                    latestUpPoss = new float[PerfectPlatSize];
+                    poss.CopyTo(latestUpPoss, 0);
+                    latestPerfectUp = PerfectPlatSize;
+                }
+                if (deltaY < 0)
+                {
+                    latestDown_y = platClone.transform.position.y;
+                    latestDown_x = platClone.transform.position.x;
+                    latestDown_ladder = ladderClone.transform.position.x;
+                    latestDown_half = platClone.GetComponent<SpriteRenderer>().size.x / 2.0f;
+                    latestDownIsFree = new bool[PerfectPlatSize];
+                    isFree.CopyTo(latestDownIsFree, 0);
+                    latestDownPoss = new float[PerfectPlatSize];
+                    poss.CopyTo(latestDownPoss, 0);
+                    latestPerfectDown = PerfectPlatSize;
+                }
+                //GC.Collect();
 
-                    return true;
+            }
+
+        }
+
+        bool GenerateUsingOdds(GameObject obj, GameObject earth, float odds, int ArrSize)
+        {
+            if (UnityEngine.Random.Range(0f, 1f) < odds)
+            {
+                while (true)
+                {
+                    int thePropPos = UnityEngine.Random.Range(0, ArrSize - 1);
+                    if (isFree[thePropPos])
+                    {
+
+                        GameObject objClone = Instantiate(obj);
+                        objClone.SetActive(true);
+                        objClone.transform.position = new Vector2(poss[thePropPos], earth.transform.position.y + 0.28f);
+                        isFree[thePropPos] = false;
+                        if (thePropPos < ArrSize - 1)
+                            isFree[thePropPos + 1] = false;
+                        if (thePropPos > 0)
+                            isFree[thePropPos - 1] = false;
+
+                        return true;
+                    }
                 }
             }
+            return false;
         }
-        return false;
-    }
 
-}
+    }

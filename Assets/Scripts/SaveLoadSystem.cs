@@ -46,16 +46,16 @@ public class SaveLoadSystem : MonoBehaviour
     public static void DeleteSave()
     {
         PlayerPrefs.DeleteAll();
-        Stats.GG_Experience = 0;
-        Stats.GG_Gold = 0;
+        Stats.GG_Experience = 100000;
+        Stats.GG_Gold = 100000;
         Stats.GG_Health = 500;
         Stats.GG_MaxHealth = 500;
         Stats.GG_Mana = 0;
         Stats.GG_MaxMana = 0;
-        Stats.GG_Damage = 6;
+        Stats.GG_Damage = 5;
         Stats.GG_Armor = 0.0f;
-        Stats.GG_CRT_CHN = 0.1f;
-        Stats.GG_CRT_DMG = 1.0f;
+        Stats.GG_CRT_CHN = 0.05f;
+        Stats.GG_CRT_DMG = 1.1f;
         Stats.GG_SUP_DMG = 0.0f;
         Stats.GG_SUP_Manacost = 1;
         Stats.Enemy_Damage = 30;

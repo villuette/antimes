@@ -10,7 +10,7 @@ public class forDownLadderScr : MonoBehaviour
     BoxCollider2D chestcol;
     BoxCollider2D thiscol;
     public int earnedMoney;
-    public int minMoneyEarned, maxMoneyEarned;
+    //public int minMoneyEarned, maxMoneyEarned;
     [SerializeField] public bool show_coins_wchest = false;
     [SerializeField] public bool show_coins_gchest = false;
     [SerializeField] private float scale = 0.2f;
@@ -51,7 +51,7 @@ public class forDownLadderScr : MonoBehaviour
         {
             //scr for money up////
             coinsTime = 0;
-            earnedMoney = UnityEngine.Random.Range(minMoneyEarned, maxMoneyEarned);
+            earnedMoney = UnityEngine.Random.Range(10, 15);
             Stats.GG_UGold += earnedMoney;
             Stats.ShowCoins();
             chestcol = collision.GetComponent<BoxCollider2D>();
@@ -73,7 +73,7 @@ public class forDownLadderScr : MonoBehaviour
         if (collision.CompareTag("gchest"))
         {
             coinsTime = 0;
-            earnedMoney = UnityEngine.Random.Range(minMoneyEarned, maxMoneyEarned) * 10;
+            earnedMoney = UnityEngine.Random.Range(30, 80);
             Stats.GG_UGold += earnedMoney;
             Stats.ShowCoins();
             chestcol = collision.GetComponent<BoxCollider2D>();
@@ -92,8 +92,6 @@ public class forDownLadderScr : MonoBehaviour
             }
             else gen_coins.CreateCoin();
         }
-        //if (collision.CompareTag("ground"))
-        //    GG_Moving.canMove = true;
     }
     private void ShowCoins()
     {

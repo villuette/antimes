@@ -11,7 +11,7 @@ public class BGparallax : MonoBehaviour
     public float speed;
     public float Nmax = 10;
     Vector3 tv;
-    public float tvy;
+    public static float tvy;
     Vector3 GGbased;
     Transform GG;
     Transform CAM;

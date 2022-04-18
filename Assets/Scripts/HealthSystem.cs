@@ -27,7 +27,6 @@ public class HealthSystem : MonoBehaviour
         posX = leftCornBar.GetComponent<Transform>().position.x;
         offset = (float)Math.Round(midCornBar.GetComponent<SpriteRenderer>().size.x / 2, 2);
 
-
         maximal = Stats.GG_MaxHealth / 100;
         particles = new GameObject[maximal]; //particles before cuts'10 maximal
         if (maximal > 10) maximal = 10;
@@ -38,12 +37,12 @@ public class HealthSystem : MonoBehaviour
     }
     public void InstanceHP()
     {
-        town = TownScriptsObj.GetComponent<Town>();
-        town.ColorSystem(0, ref color);
+        //town = TownScriptsObj.GetComponent<Town>();
+        //town.ColorSystem(0, ref color);
         posX = leftCornBar.GetComponent<Transform>().position.x;
-        offset = (float)Math.Round(midCornBar.GetComponent<SpriteRenderer>().size.x / 2, 2);
+        //offset = (float)Math.Round(midCornBar.GetComponent<SpriteRenderer>().size.x / 2, 2);
    
-        positions = new float[maximal];
+       
 
 
         for (int i = 0; i < maximal; i++) //max from last iteration
@@ -55,6 +54,7 @@ public class HealthSystem : MonoBehaviour
         maximal = Stats.GG_MaxHealth / 100;
         particles = new GameObject[maximal];//particles before cuts'10 maximal
         if (maximal > 10) maximal = 10;
+        positions = new float[maximal];
         clonedMid = new GameObject[maximal - 2];
         RendHPbar();
         ShowHP();

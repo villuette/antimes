@@ -15,10 +15,11 @@ public class Fights : MonoBehaviour
     [SerializeField] private Text earnedExp;
     bool showExp = false;
     float currTimeE = 0.0f;
-    float FullTimeE = 3.0f;
+    float FullTimeE = 1f;
     float scaleE = 0.2f;
     float invisabilityE = 0.0f;
     int expPerMob;
+    public GameObject expbirk;
 
     public static float _game_speed = 3;
     [SerializeField] private Text dealed_dmg;
@@ -34,6 +35,8 @@ public class Fights : MonoBehaviour
     float dealt_offset = 0.1f;
 
     HealthSystem healthSystem;
+
+    bool isCritical;
 
     void Start()
     {
@@ -51,8 +54,8 @@ public class Fights : MonoBehaviour
         anim_enemy.speed = _game_speed / 2;
     }
     private void ShowExpEarned()
-    {         
-        
+    {
+
         earnedExp.text = Convert.ToString(expPerMob);
         if (FullTimeE >= currTimeE)
         {
@@ -67,6 +70,7 @@ public class Fights : MonoBehaviour
         }
         else
         {
+            earnedExp.gameObject.SetActive(false); //выключает когда пропадает экспа
             earnedExp.text = null;
             currTimeE = 0.0f;
             scaleE = 0.2f;
@@ -100,12 +104,14 @@ public class Fights : MonoBehaviour
         {
             if (ispersonbeat)
             {
-                dealed_dmg.color = Color.white;
                 dealed_dmg.text = null;
                 dealed_dmg.text = "-" + Convert.ToString(dmg_dealt);
                 if (FullTime >= currTime)
                 {
-                    dealed_dmg.color = new Color(1, 1, 1, 1 - invisability);
+                    if (isCritical)
+                        dealed_dmg.color = new Color(1, 0.92f, 0.016f, 1 - invisability);
+                    else
+                        dealed_dmg.color = new Color(1, 1, 1, 1 - invisability);
                     if (invisability < 1)
                         invisability += 0.03f;
                     currTime += Time.deltaTime;
@@ -117,6 +123,7 @@ public class Fights : MonoBehaviour
                 else
                 {
                     dealed_dmg.text = null;
+                    isCritical = false;
                     currTime = 0f;
                     scale = 0.2f;
                     show = false;
@@ -126,6 +133,7 @@ public class Fights : MonoBehaviour
         }
         if (isenemybeat)
         {
+            isCritical = false;
             dealed_dmg.text = null;
             dealed_dmg.text = "-" + Convert.ToString(dmg_dealt);
             if (FullTime >= currTime)
@@ -157,20 +165,20 @@ public class Fights : MonoBehaviour
         {
             GG_Moving.CanDoLaddering = false;
             GG_Moving.canMove = false;
-            anim_gg.SetInteger("is_running", 0);
             BoxCollider2D thiscol = GetComponent<BoxCollider2D>();
             margin = thiscol.size.x / 2.0f;
             EnemyRotate();
             RotateGG();
             GG_Moving.canMove = false;
             collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-            anim_gg.SetInteger("is_running", 0);
+
             if (collision.gameObject.transform.position.x < transform.position.x)
                 collision.gameObject.transform.position = new Vector3(transform.position.x - margin, transform.position.y);
             else
                 collision.gameObject.transform.position = new Vector3(transform.position.x + margin, transform.position.y);
             anim_gg.SetBool("is_laddering", false); //if person contacts while laddering
-            anim_gg.SetTrigger("interrupts");              
+            anim_gg.SetInteger("is_running", 0);
+            anim_gg.SetTrigger("interrupts");
             StartCoroutine(FightCoroutine());
 
 
@@ -252,8 +260,13 @@ public class Fights : MonoBehaviour
 
 
             yield return new WaitForSeconds(1 / _game_speed);
-
-            dmg_dealt = (int)UnityEngine.Random.Range(Stats.GG_Damage - Stats.GG_Damage/4f, Stats.GG_Damage + Stats.GG_Damage/4f); //damage, dealt to enemy
+            if (UnityEngine.Random.Range(0f, 1f) < Stats.GG_CRT_CHN)
+            {
+                isCritical = true;
+                dmg_dealt = (int)(Stats.GG_CRT_DMG * Stats.GG_Damage);
+            }
+            else
+                dmg_dealt = (int)UnityEngine.Random.Range(Stats.GG_Damage - Stats.GG_Damage / 4f, Stats.GG_Damage + Stats.GG_Damage / 4f); //damage, dealt to enemy
             ispersonbeat = true;
             isenemybeat = false;
             currTime = 0f;
@@ -266,8 +279,9 @@ public class Fights : MonoBehaviour
             {
                 expPerMob = UnityEngine.Random.Range(5, 20);
                 Stats.GG_UExperience += expPerMob;
+                earnedExp.gameObject.SetActive(true);
                 Stats.ShowExp();
-                showExp = true;               
+                showExp = true;
                 enemy_hp.text = null;
                 anim_gg.SetTrigger("interrupts");
                 anim_enemy.Play("enemy_death");

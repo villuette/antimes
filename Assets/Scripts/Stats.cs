@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Stats : MonoBehaviour
@@ -31,13 +32,62 @@ public class Stats : MonoBehaviour
     public static GameObject GG;
     public static Text coinText;
     public static Text expText;
+
+    public static int costHP;
+    public static int costDMG;
+    public static int costARM;
+    public static int costCRT;
+    public static int costSUP;
+    public static int costSHOP;
+    public static Text costHPt;
+    public static Text costDMGt;
+    public static Text costARMt;
+    public static Text costCRTt;
+    public static Text costSUPt;
+    public static Text costSHOPt;
+    public GameObject canv;
     void Start()
-    {
+    {     
         coinText = GameObject.Find("CoinText").GetComponent<Text>();
         expText = GameObject.Find("ExpText").GetComponent<Text>();
+        if (SceneManager.GetActiveScene().name == "SampleScene")
+        {
+            canv = GameObject.Find("canv");
+            costHPt = GameObject.Find("costHPt").GetComponent<Text>();
+            costDMGt = GameObject.Find("costDMGt").GetComponent<Text>();
+            costARMt = GameObject.Find("costARMt").GetComponent<Text>();
+            costCRTt = GameObject.Find("costCRTt").GetComponent<Text>();
+            costSUPt = GameObject.Find("costSUPt").GetComponent<Text>();
+            costSHOPt = GameObject.Find("costSHOPt").GetComponent<Text>();
+            canv.SetActive(false);
+
+        }
         GG = GameObject.Find("GG");
         ShowCoins();
         ShowExp();
+    }
+    public static void ShowCostsInShop()
+    {
+        costHPt.text = null;
+        costDMGt.text = null;
+        costARMt.text = null;
+        costCRTt.text = null;
+        costSUPt.text = null;
+        costSHOPt.text = null;
+
+        costHP = 200 + (MaxHealth_Level / 5) * 100;
+        costDMG = 200 + (Damage_Level / 5) * 100;
+        costARM = 200 + (Armor_Level / 5) * 100;
+        costCRT = 200 + (CRIT_Level / 5) * 100;
+        costSUP = 200 + (SUP_Level / 5) * 100;
+        costSHOP = Max_Level * 100;
+
+        costHPt.text = Convert.ToString(costHP);
+        costDMGt.text = Convert.ToString(costDMG);
+        costARMt.text = Convert.ToString(costARM);
+        costCRTt.text = Convert.ToString(costCRT);
+        costSUPt.text = Convert.ToString(costSUP);
+        costSHOPt.text = Convert.ToString(costSHOP);
     }
     public static void ShowCoins()
     {
@@ -61,5 +111,5 @@ public class Stats : MonoBehaviour
         GG_Health -= 1;
         Debug.Log(GG_Health);
     }
-    
+
 }
