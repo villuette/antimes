@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 789778201}
   - component: {fileID: 789778202}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: profile_GG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 999
   m_Sprite: {fileID: 21300000, guid: d74b321cddd13e444bfdbec4cae593a6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 649717651888717923}
   - component: {fileID: 649717651888717920}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: bigSquare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 999
   m_Sprite: {fileID: 3093045374630344526, guid: f68b0a0594e48ae4884053f707fd902b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -174,7 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 649717652561163392}
   - component: {fileID: 649717652561163393}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: rightConrBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,8 +189,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 649717652561163395}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.709, y: 0.024, z: 0.6346005}
-  m_LocalScale: {x: 0.47767997, y: 0.47767997, z: 0.47768}
+  m_LocalPosition: {x: -0.811, y: 0.088, z: 0.6346005}
+  m_LocalScale: {x: 0.47926363, y: 0.4792636, z: 0.4792636}
   m_Children: []
   m_Father: {fileID: 649717652750742647}
   m_RootOrder: 3
@@ -234,12 +234,12 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 999
   m_Sprite: {fileID: 8004920879445932023, guid: f68b0a0594e48ae4884053f707fd902b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 1
+  m_DrawMode: 0
   m_Size: {x: 0.19, y: 0.14}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -256,7 +256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 649717652737063117}
   - component: {fileID: 649717652737063106}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: healthParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 13
+  m_SortingOrder: 1111
   m_Sprite: {fileID: 1848960801926120213, guid: 897083425d82d484bb5cc179f2115ec2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -338,7 +338,7 @@ GameObject:
   m_Component:
   - component: {fileID: 649717652741184553}
   - component: {fileID: 649717652741184558}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: leftCornBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -353,8 +353,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 649717652741184552}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.10019982, y: 0.1490022, z: 0.6346005}
-  m_LocalScale: {x: 0.4782, y: 0.4782, z: 0.4782}
+  m_LocalPosition: {x: 0.10096, y: 0.14956, z: 0.6346005}
+  m_LocalScale: {x: 0.47926363, y: 0.4792636, z: 0.4792636}
   m_Children: []
   m_Father: {fileID: 649717652750742647}
   m_RootOrder: 1
@@ -398,12 +398,12 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 999
   m_Sprite: {fileID: 9162267596532196578, guid: f68b0a0594e48ae4884053f707fd902b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 1
+  m_DrawMode: 0
   m_Size: {x: 0.19, y: 0.14}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -419,7 +419,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 649717652750742647}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HPBAR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -435,7 +435,7 @@ Transform:
   m_GameObject: {fileID: 649717652750742646}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.801, y: 0.267, z: 9.365399}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 202.561, y: 202.561, z: 202.561}
   m_Children:
   - {fileID: 649717651888717923}
   - {fileID: 649717652741184553}
@@ -456,7 +456,7 @@ GameObject:
   m_Component:
   - component: {fileID: 649717653116917751}
   - component: {fileID: 649717653116917748}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: midCornBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -471,8 +471,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 649717653116917750}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.806, y: 0.024, z: 0.6346005}
-  m_LocalScale: {x: 0.47926363, y: 0.47926366, z: 0.47926363}
+  m_LocalPosition: {x: -0.813, y: 0.199, z: 0.6346005}
+  m_LocalScale: {x: 0.4792636, y: 0.47926366, z: 0.47926363}
   m_Children: []
   m_Father: {fileID: 649717652750742647}
   m_RootOrder: 2
@@ -516,12 +516,12 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 999
   m_Sprite: {fileID: -6087873826881956765, guid: f68b0a0594e48ae4884053f707fd902b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 2
+  m_DrawMode: 0
   m_Size: {x: 0.19, y: 0.14}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0

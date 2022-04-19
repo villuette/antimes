@@ -106,10 +106,4 @@ public class Stats : MonoBehaviour
         GG_Moving.CanDoLaddering = true;
         GG_Moving.canMove = true;
     }
-    public void lowHP()
-    {
-        GG_Health -= 1;
-        Debug.Log(GG_Health);
-    }
-
 }

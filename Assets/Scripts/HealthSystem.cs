@@ -25,7 +25,8 @@ public class HealthSystem : MonoBehaviour
         town = TownScriptsObj.GetComponent<Town>();
         town.ColorSystem(0, ref color);
         posX = leftCornBar.GetComponent<Transform>().position.x;
-        offset = (float)Math.Round(midCornBar.GetComponent<SpriteRenderer>().size.x / 2, 2);
+        //midCornBar.transform.localScale =  new Vector3(leftCornBar.transform.localScale.x, leftCornBar.transform.localScale.y, leftCornBar.transform.localScale.z);
+        offset = midCornBar.GetComponent<SpriteRenderer>().size.x / 2;
 
         maximal = Stats.GG_MaxHealth / 100;
         particles = new GameObject[maximal]; //particles before cuts'10 maximal
