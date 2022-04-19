@@ -124,15 +124,11 @@ public class Stats : MonoBehaviour
     }
     public void GG_Death()
     {
-        //onoBehaviour mb = new MonoBehaviour();
         GG.GetComponent<Animator>().Play("gg_death");
-        //Invoke("ShowDeathMenu", 2f);
         StartCoroutine("Wait"); 
-        //ShowDeathMenu();
         GG_UGold = 0;
         GG_UExperience = 0;
         SaveLoadSystem.SaveGame();
-        //SceneSwap.Load_Town();
         GG_Moving.CanDoLaddering = true;
         GG_Moving.canMove = true;
     }

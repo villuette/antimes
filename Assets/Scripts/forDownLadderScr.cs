@@ -49,7 +49,6 @@ public class forDownLadderScr : MonoBehaviour
     {
         if (collision.CompareTag("wchest"))
         {
-            //scr for money up////
             coinsTime = 0;
             earnedMoney = UnityEngine.Random.Range(10, 15);
             Stats.GG_UGold += earnedMoney;
@@ -58,7 +57,7 @@ public class forDownLadderScr : MonoBehaviour
             collision.gameObject.GetComponent<Animator>().enabled = true;
             collision.enabled = false;
             show_coins_wchest = true;
-            if (show_coins_gchest || show_coins_wchest) //небольшой фикс при открытии
+            if (show_coins_gchest || show_coins_wchest) //фикс при открытии одновременно двух разных сундуков
             {
                 scale = 0.2f;
                 Destroy(gen_coins.generated_coins);

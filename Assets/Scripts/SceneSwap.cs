@@ -18,7 +18,8 @@ public class SceneSwap : MonoBehaviour
         SceneManager.LoadScene(1);
         SaveLoadSystem.LoadGame();
         Stats.GG_Gold += Stats.GG_UGold;
-        Stats.GG_Experience += Stats.GG_UExperience;
+        Stats.GG_Experience += Stats.GG_UExperience;//"ненадёжные" золото и опыт переходят в "надёжные"
+                                                    //по возвращении (невозможно утратить при смерти)
         Stats.GG_UExperience = 0;
         Stats.GG_UGold = 0;
         Stats.GG_Health = Stats.GG_MaxHealth;

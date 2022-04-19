@@ -33,7 +33,7 @@ public class Town : MonoBehaviour
             Stats.MaxHealth_Level += 1;
             Stats.GG_MaxHealth += 100;
             Stats.GG_Health = Stats.GG_MaxHealth;
-            healthSystem.InstanceHP();
+            healthSystem.InstanceHP(); //отрисовка хп сразу после улучшения навыка
             if (Stats.MaxHealth_Level <= 5)
             {
                 if (Stats.MaxHealth_Level % 5 != 0)
@@ -48,7 +48,7 @@ public class Town : MonoBehaviour
                     flag = (Stats.MaxHealth_Level % 5) - 1;
                 else
                     flag = 4;
-                ColorSystem((Stats.MaxHealth_Level - 1) / 5, ref color);
+                ColorSystem((Stats.MaxHealth_Level - 1) / 5, ref color); //универсальная функция для выбора цветов
                 MaxHP_UP[flag].GetComponent<Renderer>().material.color = color;
             }
         }
@@ -196,15 +196,12 @@ public class Town : MonoBehaviour
     }
     public void Up_Shop_Level()
     {
-        //if (Stats.MaxHealth_Level == Stats.Max_Level && Stats.Damage_Level == Stats.Max_Level && Stats.Armor_Level == Stats.Max_Level
-        //    && Stats.CRIT_Level == Stats.Max_Level && Stats.SUP_Level == Stats.Max_Level && Stats.GG_Gold >= 1 && Stats.Shop_Level < 9)
         if (Stats.GG_Gold > Stats.costSHOP && Stats.Shop_Level < 9)
         {
             Stats.Shop_Level += 1;
             Stats.Max_Level += 5;
             Stats.GG_Gold -= Stats.costSHOP;
         }
-        //ColorSystem(Stats.Shop_Level, ref color);
     }
     private void Update()
     {
@@ -250,8 +247,6 @@ public class Town : MonoBehaviour
                 ColorSystem(CheckColor, ref color);
                 Stats.GG_Experience += Up_Cost;
             }
-
-
             CheckColor = -1;
             check_LVL = Stats.Damage_Level;
             Stats.Damage_Level = 0;

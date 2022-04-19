@@ -236,7 +236,6 @@ public class Fights : MonoBehaviour
     IEnumerator FightCoroutine()
     {
         anim_gg.SetInteger("is_running", 0);
-        //GG_Moving.canMove = false;
         while (true)
         {
             if (dead)
@@ -252,7 +251,7 @@ public class Fights : MonoBehaviour
             {
                 if (switch_attack)
                 {
-                    anim_gg.SetTrigger("is_fights_1");
+                    anim_gg.SetTrigger("is_fights_1"); //two animations of attacking
                     switch_attack = false;
                 }
                 else
@@ -262,21 +261,18 @@ public class Fights : MonoBehaviour
                 }
                 anim_enemy.SetTrigger("interrupts");
                 anim_enemy.SetTrigger("is_enemy_hide");
-
-
-
             }
-            Debug.Log("GG: " + Stats.GG_Health);
-
 
             yield return new WaitForSeconds(1 / _game_speed);
+
             if (UnityEngine.Random.Range(0f, 1f) < Stats.GG_CRT_CHN)
             {
                 isCritical = true;
                 dmg_dealt = (int)(Stats.GG_CRT_DMG * Stats.GG_Damage);
             }
             else
-                dmg_dealt = (int)UnityEngine.Random.Range(Stats.GG_Damage - Stats.GG_Damage / 4f, Stats.GG_Damage + Stats.GG_Damage / 4f); //damage, dealt to enemy
+                dmg_dealt = (int)UnityEngine.Random.Range(Stats.GG_Damage - Stats.GG_Damage / 4f, 
+                    Stats.GG_Damage + Stats.GG_Damage / 4f); //damage, dealt to enemy
             ispersonbeat = true;
             isenemybeat = false;
             currTime = 0f;
@@ -287,7 +283,8 @@ public class Fights : MonoBehaviour
             ShowEnemyHp();
             if (Enemy_Health <= 0)
             {
-                expPerMob = UnityEngine.Random.Range(10*Eneme_lvl - 7 * Eneme_lvl, 10 * Eneme_lvl + 7 * Eneme_lvl);
+                expPerMob = UnityEngine.Random.Range(10*Eneme_lvl - 7 * Eneme_lvl,
+                    10 * Eneme_lvl + 7 * Eneme_lvl);
                 Stats.GG_UExperience += expPerMob;
                 Stats.ShowExp();
                 earnedExp.gameObject.SetActive(true);
@@ -308,25 +305,24 @@ public class Fights : MonoBehaviour
 
             anim_gg.SetTrigger("interrupts");
             anim_enemy.SetTrigger("is_fights");
-            //anim_gg.SetTrigger("interrupts");
             anim_gg.SetTrigger("is_hide");
 
             yield return new WaitForSeconds(1 / _game_speed);
 
-            dmg_dealt = (int)((1 - Stats.GG_Armor) * Enemy_Damage); //damage, dealt to gg
+            dmg_dealt = (int)((1 - Stats.GG_Armor) * UnityEngine.Random.Range(Enemy_Damage - Enemy_Damage/4f,
+                Enemy_Damage + Enemy_Damage / 4f)); //damage, dealt to gg
             isenemybeat = true;
-            ispersonbeat = false;
-            healthSystem.InstanceHP(); //render hpbar after damage
+            ispersonbeat = false;         
             currTime = 0f;
             scale = 0.2f;
             invisability = 0.0f;
             show = true;
             Stats.GG_Health -= dmg_dealt;
+            healthSystem.InstanceHP(); //render hpbar after damage
 
             if (Stats.GG_Health <= 0)
             {               
                 anim_enemy.SetTrigger("interrupts");
-                //anim_enemy.SetInteger("is_enemy_hide", 0);
                 ispersonbeat = false; isenemybeat = false;
                 dead = true;
             }

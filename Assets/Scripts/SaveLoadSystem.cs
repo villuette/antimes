@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SaveLoadSystem : MonoBehaviour
 {
-    //public  = null;
     public static void SaveGame()
     {
         PlayerPrefs.SetInt("GG_Experience_SAVE", Stats.GG_Experience);
@@ -46,8 +45,8 @@ public class SaveLoadSystem : MonoBehaviour
     public static void DeleteSave()
     {
         PlayerPrefs.DeleteAll();
-        Stats.GG_Experience = 100000;
-        Stats.GG_Gold = 100000;
+        Stats.GG_Experience = 0;
+        Stats.GG_Gold = 0;
         Stats.GG_Health = 500;
         Stats.GG_MaxHealth = 500;
         Stats.GG_Mana = 0;

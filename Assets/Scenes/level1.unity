@@ -1155,6 +1155,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GG
       objectReference: {fileID: 0}
+    - target: {fileID: 6992222391308666610, guid: c3eefcf10a0fc3c499675f2ade02e549, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3eefcf10a0fc3c499675f2ade02e549, type: 3}
 --- !u!1 &919005367 stripped
@@ -1380,8 +1384,8 @@ RectTransform:
   - {fileID: 495765830}
   - {fileID: 583197792}
   - {fileID: 1756362356}
-  - {fileID: 1776727435}
   - {fileID: 1865980839}
+  - {fileID: 1776727435}
   m_Father: {fileID: 1708464210}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2879,7 +2883,7 @@ Transform:
   - {fileID: 1609066021}
   - {fileID: 1628232291}
   m_Father: {fileID: 1150457452}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1865980840
 SpriteRenderer:

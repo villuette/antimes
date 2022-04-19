@@ -48,14 +48,8 @@ public class GG_Moving : MonoBehaviour
             if (Math.Abs(rb.velocity.x) > 2e-3)
                 anim.SetInteger("is_running", 1);
             if (Math.Abs(rb.velocity.x) < 2e-3)
-            {
                 anim.SetInteger("is_running", 0);
-                //rb.velocity = new Vector2(0, rb.velocity.y);
-            }
-
         }
-
-
     }
     private void Update()
     {
@@ -91,9 +85,9 @@ public class GG_Moving : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.CompareTag("tablet") && doLaddering)
+        if(collision.CompareTag("tablet") && doLaddering) //нажатие клавиши Е, находясь в табличке
         {
-            SceneSwap.Load_Town();
+            SceneSwap.Load_Town(); //перенос персонажа в город
         }
         if (collision.gameObject.tag == "ladder")
         {
@@ -103,8 +97,8 @@ public class GG_Moving : MonoBehaviour
                 CanDoLaddering = false;
                 doLaddering = false;
                 anim.SetBool("is_laddering", true);
-                //canMove = false;
-                transform.position = new Vector3(collision.gameObject.transform.position.x, transform.position.y, transform.position.z); //поставить посреди лестницы
+                transform.position = new Vector3(collision.gameObject.transform.position.x, transform.position.y, transform.position.z);
+                //поставить посреди лестницы
                 rb.velocity = new Vector2(0, 0);
                 if (upOrDown)
                 {

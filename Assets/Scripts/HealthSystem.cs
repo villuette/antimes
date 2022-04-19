@@ -26,10 +26,9 @@ public class HealthSystem : MonoBehaviour
         town.ColorSystem(0, ref color);
         posX = leftCornBar.GetComponent<Transform>().position.x;
         midCornBar.transform.localScale =  new Vector3(leftCornBar.transform.localScale.x, leftCornBar.transform.localScale.y, leftCornBar.transform.localScale.z);
-        offset = midCornBar.GetComponent<SpriteRenderer>().bounds.size.x;
-        
+        offset = midCornBar.GetComponent<SpriteRenderer>().bounds.size.x;        
         maximal = Stats.GG_MaxHealth / 100;
-        particles = new GameObject[maximal]; //particles before cuts'10 maximal
+        particles = new GameObject[maximal]; 
         if (maximal > 10) maximal = 10;
         clonedMid = new GameObject[maximal - 2];
         positions = new float[maximal];
@@ -38,12 +37,7 @@ public class HealthSystem : MonoBehaviour
     }
     public void InstanceHP()
     {
-        //town = TownScriptsObj.GetComponent<Town>();
-        //town.ColorSystem(0, ref color);
         posX = leftCornBar.GetComponent<Transform>().position.x;
-        //offset = (float)Math.Round(midCornBar.GetComponent<SpriteRenderer>().size.x / 2, 2);    
-
-
         for (int i = 0; i < maximal; i++) //max from last iteration
             if(particles[i] != null)
                 Destroy(particles[i].gameObject); //destroy previous particles
@@ -55,14 +49,12 @@ public class HealthSystem : MonoBehaviour
         if (maximal > 10) maximal = 10;
         positions = new float[maximal];
         clonedMid = new GameObject[maximal - 2];
-        RendHPbar();
-        ShowHP();
-
+        RendHPbar(); //rendering health "bowls" of bar
+        ShowHP(); //rendering health particles
     }
 
     public void RendHPbar()
-    {
-        
+    {        
         positions[0] = leftCornBar.transform.position.x; //left
         for (int i = 1; i < maximal - 1; i++) //mids
         {
@@ -86,27 +78,19 @@ public class HealthSystem : MonoBehaviour
         {
             numOfBlocks = curHP / 100 + 1;
         }
-        else numOfBlocks = curHP / 100;
-
-        
-
+        else numOfBlocks = curHP / 100;       
         for (int i = 0, l = 0, c = 0; i < numOfBlocks; i++, c++)
         {
-
-
             if (c >= 10)
             {
                 town.ColorSystem(++l, ref color);
                 healthParticle.GetComponent<SpriteRenderer>().sortingOrder++;
                 c = 0;
             }
-
             particles[i] = Instantiate(healthParticle);
             particles[i].GetComponent<SpriteRenderer>().color = color;
             particles[i].transform.position = new Vector3(positions[i % 10], leftCornBar.transform.position.y, leftCornBar.transform.position.z);
             particles[i].transform.parent = HPBar.transform;
-
         }
     }
-
 }

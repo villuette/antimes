@@ -34,11 +34,9 @@ public class BGparallax : MonoBehaviour
         CAMh = CAM.gameObject.GetComponent<Camera>().pixelHeight / sr.sprite.pixelsPerUnit;
     }
 
-    void Update()
+    void Update() //CAMh is camera height, BGh is background height, Nmax is the max position N where BG takes maximum offset
     {
-        tvy = tv.y;
-        GGy = GG.position.y;
-        tv = GG.position - GGbased;
+        tv = GG.position - GGbased; // vector from start point to person position
 
         Point_to_translate = new Vector3(CAM.position.x,  (CAM.position.y - tv.y * (BGh - CAMh) /(Nmax)) - tv.y*3/Nmax, 0);
         
@@ -49,10 +47,7 @@ public class BGparallax : MonoBehaviour
             if (CAM.transform.position.y > transform.position.y)
                 Point_to_translate = new Vector3(CAM.position.x, (CAM.position.y - (BGh - CAMh) - 3), 0);
         }
-        //Vector3 currentPosition = Vector3.Lerp(transform.position, Point_to_translate, 1);
         Vector3 evect = Point_to_translate - transform.position;
-
-        //transform.position = currentPosition;
         transform.Translate(evect * (float)(Time.deltaTime*speed));
     }
 }
