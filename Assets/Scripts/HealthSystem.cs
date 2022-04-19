@@ -25,9 +25,9 @@ public class HealthSystem : MonoBehaviour
         town = TownScriptsObj.GetComponent<Town>();
         town.ColorSystem(0, ref color);
         posX = leftCornBar.GetComponent<Transform>().position.x;
-        //midCornBar.transform.localScale =  new Vector3(leftCornBar.transform.localScale.x, leftCornBar.transform.localScale.y, leftCornBar.transform.localScale.z);
-        offset = midCornBar.GetComponent<SpriteRenderer>().size.x / 2;
-
+        midCornBar.transform.localScale =  new Vector3(leftCornBar.transform.localScale.x, leftCornBar.transform.localScale.y, leftCornBar.transform.localScale.z);
+        offset = midCornBar.GetComponent<SpriteRenderer>().bounds.size.x;
+        
         maximal = Stats.GG_MaxHealth / 100;
         particles = new GameObject[maximal]; //particles before cuts'10 maximal
         if (maximal > 10) maximal = 10;
@@ -41,9 +41,7 @@ public class HealthSystem : MonoBehaviour
         //town = TownScriptsObj.GetComponent<Town>();
         //town.ColorSystem(0, ref color);
         posX = leftCornBar.GetComponent<Transform>().position.x;
-        //offset = (float)Math.Round(midCornBar.GetComponent<SpriteRenderer>().size.x / 2, 2);
-   
-       
+        //offset = (float)Math.Round(midCornBar.GetComponent<SpriteRenderer>().size.x / 2, 2);    
 
 
         for (int i = 0; i < maximal; i++) //max from last iteration
@@ -66,19 +64,17 @@ public class HealthSystem : MonoBehaviour
     {
         
         positions[0] = leftCornBar.transform.position.x; //left
-
-        
         for (int i = 1; i < maximal - 1; i++) //mids
         {
             posX += offset;
             positions[i] = posX;
-            Vector3 a = new Vector3(posX, leftCornBar.transform.position.y, leftCornBar.transform.position.z);
+            Vector3 a = new Vector3 (posX, leftCornBar.transform.position.y, leftCornBar.transform.position.z);
             clonedMid[i - 1] = Instantiate(midCornBar);
             clonedMid[i - 1].transform.position = a;
             clonedMid[i - 1].transform.parent = HPBar.transform;
-
+            clonedMid[i - 1].transform.localScale = new Vector3(leftCornBar.transform.localScale.x, leftCornBar.transform.localScale.y, leftCornBar.transform.localScale.z);
         }
-        posX += offset;
+        posX += offset ;
         positions[maximal - 1] = posX; //right pos
         rightCornBar.transform.position = new Vector3(positions[maximal - 1], leftCornBar.transform.position.y, leftCornBar.transform.position.z);
     }
