@@ -55,34 +55,39 @@ public class Fights : MonoBehaviour
     }
     private void ShowExpEarned()
     {
-
-        earnedExp.text = Convert.ToString(expPerMob);
         if (FullTimeE >= currTimeE)
         {
+            earnedExp.text = Convert.ToString(expPerMob);
             earnedExp.color = new Color(0, 1, 0, 1 - invisabilityE);
             if (invisabilityE < 1)
+            {
                 invisabilityE += 0.03f;
+            } 
+            else
+            {
+                earnedExp.text = null;
+                earnedExp.gameObject.SetActive(false); //выключает когда пропадает экспа
+                currTimeE = 0.0f;
+                scaleE = 0.2f;
+                showExp = false;
+                invisabilityE = 0.0f;
+            }   
             currTimeE += Time.deltaTime;
             float coord_xE = Stats.GG.transform.position.x;
             float coord_yE = Stats.GG.transform.position.y + scaleE;
             earnedExp.transform.position = new Vector2(coord_xE, coord_yE);
             scaleE += 0.01f;
         }
-        else
-        {
-            earnedExp.gameObject.SetActive(false); //выключает когда пропадает экспа
-            earnedExp.text = null;
-            currTimeE = 0.0f;
-            scaleE = 0.2f;
-            showExp = false;
-            invisabilityE = 0.0f;
-        }
     }
+         
     private void FixedUpdate()
     {
         DealedDMGShow();
         if (showExp)
+        {
             ShowExpEarned();
+        }
+        
     }
     void RotateGG()
     {
@@ -279,8 +284,8 @@ public class Fights : MonoBehaviour
             {
                 expPerMob = UnityEngine.Random.Range(5, 20);
                 Stats.GG_UExperience += expPerMob;
-                earnedExp.gameObject.SetActive(true);
                 Stats.ShowExp();
+                earnedExp.gameObject.SetActive(true);
                 showExp = true;
                 enemy_hp.text = null;
                 anim_gg.SetTrigger("interrupts");
