@@ -329,7 +329,7 @@ public class Generation : MonoBehaviour
 
         }
 
-        bool GenerateUsingOdds(GameObject obj, GameObject earth, float odds, int ArrSize)
+        void GenerateUsingOdds(GameObject obj, GameObject earth, float odds, int ArrSize)
         {
             if (UnityEngine.Random.Range(0f, 1f) < odds)
             {
@@ -338,7 +338,6 @@ public class Generation : MonoBehaviour
                     int thePropPos = UnityEngine.Random.Range(0, ArrSize - 1);
                     if (isFree[thePropPos])
                     {
-
                         GameObject objClone = Instantiate(obj);
                         objClone.SetActive(true);
                         objClone.transform.position = new Vector2(poss[thePropPos], earth.transform.position.y + 0.28f);
@@ -346,13 +345,10 @@ public class Generation : MonoBehaviour
                         if (thePropPos < ArrSize - 1)
                             isFree[thePropPos + 1] = false;
                         if (thePropPos > 0)
-                            isFree[thePropPos - 1] = false;
-
-                        return true;
+                            isFree[thePropPos - 1] = false; 
                     }
                 }
             }
-            return false;
         }
 
     }

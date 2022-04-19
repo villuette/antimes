@@ -114,6 +114,8 @@ public class Stats : MonoBehaviour
         deathmenu.SetActive(true);
         expLosed.text = Convert.ToString(GG_UExperience);
         coinLosed.text = Convert.ToString(GG_UGold);
+        GG_UGold = 0;
+        GG_UExperience = 0;
         StopCoroutine("Wait");
     }
     private  IEnumerator Wait()
@@ -126,8 +128,7 @@ public class Stats : MonoBehaviour
     {
         GG.GetComponent<Animator>().Play("gg_death");
         StartCoroutine("Wait"); 
-        GG_UGold = 0;
-        GG_UExperience = 0;
+        
         SaveLoadSystem.SaveGame();
         GG_Moving.CanDoLaddering = true;
         GG_Moving.canMove = true;
