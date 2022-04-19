@@ -46,8 +46,12 @@ public class Stats : MonoBehaviour
     public static Text costSUPt;
     public static Text costSHOPt;
     public GameObject canv;
+    public static Text expLosed;
+    public static Text coinLosed;
+
+    public static GameObject deathmenu;
     void Start()
-    {     
+    {
         coinText = GameObject.Find("CoinText").GetComponent<Text>();
         expText = GameObject.Find("ExpText").GetComponent<Text>();
         if (SceneManager.GetActiveScene().name == "SampleScene")
@@ -62,6 +66,14 @@ public class Stats : MonoBehaviour
             canv.SetActive(false);
 
         }
+        if (SceneManager.GetActiveScene().name == "level1")
+        {
+            expLosed = GameObject.Find("ExpLosed").GetComponent<Text>();
+            coinLosed = GameObject.Find("CoinLosed").GetComponent<Text>();
+            deathmenu =GameObject.Find("DeathMenu");
+            deathmenu.SetActive(false);
+        }
+
         GG = GameObject.Find("GG");
         ShowCoins();
         ShowExp();
@@ -97,12 +109,30 @@ public class Stats : MonoBehaviour
     {
         expText.text = Convert.ToString(GG_Experience + GG_UExperience);
     }
-    public static void GG_Death()
+    public void ShowDeathMenu()
     {
+        deathmenu.SetActive(true);
+        expLosed.text = Convert.ToString(GG_UExperience);
+        coinLosed.text = Convert.ToString(GG_UGold);
+        StopCoroutine("Wait");
+    }
+    private  IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(2f);
+        ShowDeathMenu();
+        
+    }
+    public void GG_Death()
+    {
+        //onoBehaviour mb = new MonoBehaviour();
+        GG.GetComponent<Animator>().Play("gg_death");
+        //Invoke("ShowDeathMenu", 2f);
+        StartCoroutine("Wait"); 
+        //ShowDeathMenu();
         GG_UGold = 0;
         GG_UExperience = 0;
         SaveLoadSystem.SaveGame();
-        SceneSwap.Load_Town();
+        //SceneSwap.Load_Town();
         GG_Moving.CanDoLaddering = true;
         GG_Moving.canMove = true;
     }

@@ -3370,6 +3370,10 @@ PrefabInstance:
       propertyPath: flyTime
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2136468332, guid: c3eefcf10a0fc3c499675f2ade02e549, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5487466860786506969, guid: c3eefcf10a0fc3c499675f2ade02e549, type: 3}
       propertyPath: m_Name
       value: GG

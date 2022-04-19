@@ -150,5 +150,10 @@ public class GG_Moving : MonoBehaviour
             CanDoLaddering = true;
             canMove = true;
         }
+        if (collision.gameObject.tag == "Enemy")
+        {
+            CanDoLaddering = true;
+            canMove = true;
+        }
     }
 }

@@ -21,7 +21,7 @@ public class Fights : MonoBehaviour
     int expPerMob;
     public GameObject expbirk;
 
-    public static float _game_speed = 3;
+    public static float _game_speed = 2;
     [SerializeField] private Text dealed_dmg;
     float scale = 0.2f;
     bool ispersonbeat, isenemybeat;
@@ -57,6 +57,7 @@ public class Fights : MonoBehaviour
     {
         if (FullTimeE >= currTimeE)
         {
+            
             earnedExp.text = Convert.ToString(expPerMob);
             earnedExp.color = new Color(0, 1, 0, 1 - invisabilityE);
             if (invisabilityE < 1)
@@ -66,7 +67,7 @@ public class Fights : MonoBehaviour
             else
             {
                 earnedExp.text = null;
-                earnedExp.gameObject.SetActive(false); //выключает когда пропадает экспа
+                earnedExp.enabled = false; //выключает когда пропадает экспа
                 currTimeE = 0.0f;
                 scaleE = 0.2f;
                 showExp = false;
@@ -85,6 +86,7 @@ public class Fights : MonoBehaviour
         DealedDMGShow();
         if (showExp)
         {
+            earnedExp.enabled = true;
             ShowExpEarned();
         }
         
@@ -193,7 +195,7 @@ public class Fights : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            GG_Moving.CanDoLaddering = false;
+            //GG_Moving.CanDoLaddering = false;
         }
 
     }
@@ -201,10 +203,11 @@ public class Fights : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            //gameObject.GetComponent<BoxCollider2D>().enabled = false;
             enemy_hp.text = null;
-            GG_Moving.CanDoLaddering = true;
-            GG_Moving.canMove = true;
-            StopCoroutine(FightCoroutine());
+            //GG_Moving.CanDoLaddering = true;
+            //GG_Moving.canMove = true;
+            //StopCoroutine(FightCoroutine());
         }
     }
 
@@ -232,13 +235,15 @@ public class Fights : MonoBehaviour
     }
     IEnumerator FightCoroutine()
     {
-
+        anim_gg.SetInteger("is_running", 0);
         //GG_Moving.canMove = false;
         while (true)
         {
             if (dead)
             {
-                Stats.GG_Death();
+                enemy_hp.text = null;
+               Stats st = GameObject.Find("StatsObj").GetComponent<Stats>();
+                st.GG_Death();
                 StopCoroutine("FightCoroutine");
                 GG_Moving.CanDoLaddering = true;
                 break;
@@ -282,7 +287,7 @@ public class Fights : MonoBehaviour
             ShowEnemyHp();
             if (Enemy_Health <= 0)
             {
-                expPerMob = UnityEngine.Random.Range(5, 20);
+                expPerMob = UnityEngine.Random.Range(10*Eneme_lvl - 7 * Eneme_lvl, 10 * Eneme_lvl + 7 * Eneme_lvl);
                 Stats.GG_UExperience += expPerMob;
                 Stats.ShowExp();
                 earnedExp.gameObject.SetActive(true);
@@ -291,11 +296,11 @@ public class Fights : MonoBehaviour
                 anim_gg.SetTrigger("interrupts");
                 anim_enemy.Play("enemy_death");
                 ispersonbeat = false; isenemybeat = false;
-                gameObject.GetComponent<BoxCollider2D>().enabled = false;
                 GG_Moving.CanDoLaddering = true;
-                GG_Moving.canMove = true;
-                StopCoroutine(nameof(FightCoroutine));
+                GG_Moving.canMove = true;               
                 Destroy(gameObject, 1f);
+                print("here");
+                StopCoroutine(nameof(FightCoroutine));
                 break;
             }
 
@@ -319,8 +324,7 @@ public class Fights : MonoBehaviour
             Stats.GG_Health -= dmg_dealt;
 
             if (Stats.GG_Health <= 0)
-            {
-                anim_gg.Play("gg_death");
+            {               
                 anim_enemy.SetTrigger("interrupts");
                 //anim_enemy.SetInteger("is_enemy_hide", 0);
                 ispersonbeat = false; isenemybeat = false;

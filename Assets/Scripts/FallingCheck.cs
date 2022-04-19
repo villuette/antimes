@@ -8,8 +8,10 @@ public class FallingCheck : MonoBehaviour
     [SerializeField] private float flyTime = 0.0f;
     public float deadFlyTime = 4f;
     HealthSystem healthSystem;
+    Stats st;
     private void Start()
     {
+        st = GameObject.Find("StatsObj").GetComponent<Stats>();
         healthSystem = GameObject.Find("HPLogic").GetComponent<HealthSystem>();
     }
 
@@ -22,6 +24,7 @@ public class FallingCheck : MonoBehaviour
             {
                 //Destroy(GameObject.Find("GG"));
                 Debug.Log("Time dead");
+                st.GG_Death();
             }
         }
         else
@@ -43,7 +46,7 @@ public class FallingCheck : MonoBehaviour
             if (Stats.GG_Health <= 0)
             {
                 Debug.Log("Flyin' dead");
-                Stats.GG_Death();
+                st.GG_Death();
 
             }
         }
