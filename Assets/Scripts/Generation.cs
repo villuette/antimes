@@ -345,8 +345,9 @@ public class Generation : MonoBehaviour
                         if (thePropPos < ArrSize - 1)
                             isFree[thePropPos + 1] = false;
                         if (thePropPos > 0)
-                            isFree[thePropPos - 1] = false; 
-                    }
+                            isFree[thePropPos - 1] = false;
+                    return;
+                }               
                 }
             }
         }
